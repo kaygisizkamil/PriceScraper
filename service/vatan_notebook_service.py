@@ -3,6 +3,7 @@ import asyncio
 from bs4 import BeautifulSoup
 import re
 
+
 async def get_star_rating(review_percentage):
     if review_percentage >= 90:
         return 5
@@ -102,5 +103,3 @@ async def fetch_product_data(session, page_number):
 async def get_product_data(page_number):
     async with aiohttp.ClientSession() as session:
         return await fetch_product_data(session, page_number)
-
-     

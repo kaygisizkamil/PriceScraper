@@ -3,9 +3,8 @@ from model.hepsiburda_datas import HepsiburadaDataReadOnly
 
 hepsiburada_blueprint = Blueprint('hepsiburada', __name__)
 
-# Define the route
 @hepsiburada_blueprint.route('/api/hepsiburada/notebooks/getall', methods=['GET'])
-def get_all_notebooks():
+def hepsiburada_get_all_notebooks():
     # Fetch data from the read-only table (HepsiburadaDataReadOnly)
     all_notebooks = HepsiburadaDataReadOnly.query.all()
 

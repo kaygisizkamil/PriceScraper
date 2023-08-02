@@ -6,7 +6,7 @@ vatan_blueprint = Blueprint('vatan', __name__)
 
 # Define the route
 @vatan_blueprint.route('/api/vatan/notebooks/getall', methods=['GET'])
-def get_all_notebooks():
+def vatan_get_all_notebooks():
     # Fetch data from the read-only table (ProductDataReadOnly)
     all_notebooks = VatanDataReadOnly.query.all()
 

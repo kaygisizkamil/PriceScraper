@@ -9,7 +9,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 initial_data_extraction_complete = False
 data_extraction_lock = asyncio.Lock()  # Use asyncio.Lock instead of threading.Lock()
 
-async def schedule_task_for_vatan(sc, app, database_uri):
+async def schedule_task_for_vatan( app, database_uri):
     global initial_data_extraction_complete
 
     while True:  # Run the loop indefinitely for periodic scheduling
