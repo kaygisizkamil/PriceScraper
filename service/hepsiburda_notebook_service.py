@@ -44,7 +44,6 @@ async def get_product_data_infos(session, page_number):
 
                     # Extract prices
                     prices = re.findall(r'"price":(\d+(?:\.\d+)?)', script_text)
-
                     # Extract customer review rating and count
                     review_ratings = re.findall(r'"customerReviewRating":(\d+(?:\.\d+)?)', script_text)
                     review_counts = re.findall(r'"customerReviewCount":(\d+)', script_text)
@@ -70,6 +69,12 @@ async def get_product_data_infos(session, page_number):
         product_data_lists = []
         for i, (product, image_link, price, rating, count, decoded_url) in enumerate(zip(product_data, image_links, prices, review_ratings, review_counts, decoded_urls)):
             _, brand, name = product
+            name = name.rstrip('\\')
+            parts =price.split(",")
+            integer_part = parts[0] # Take the part before the comma
+            integer_part = integer_part.replace(".","")  
+            price = int(integer_part)
+
             product_data_lists.append({
                 "product_name": name,
                 "brand_name": brand,

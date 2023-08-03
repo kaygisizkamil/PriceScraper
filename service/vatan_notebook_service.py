@@ -6,17 +6,26 @@ import re
 
 async def get_star_rating(review_percentage):
     if review_percentage >= 90:
-        return 5
+        return 5.0
     elif review_percentage >= 80:
-        return 4
+        return 4.5
     elif review_percentage >= 70:
-        return 3
+        return 4.0
     elif review_percentage >= 60:
-        return 2
+        return 3.5
     elif review_percentage >= 50:
-        return 1
+        return 3.0
+    elif review_percentage >= 40:
+        return 2.5
+    elif review_percentage >= 30:
+        return 2.0
+    elif review_percentage >= 20:
+        return 1.5
+    elif review_percentage >= 10:
+        return 1.0
     else:
-        return 0
+        return 0.0
+
 
 async def fetch_product_data(session, page_number):
     try:

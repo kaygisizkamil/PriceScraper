@@ -41,7 +41,11 @@ async def extract_product_properties(session, page_number):
 
                     # Extract price
                     price_container = product_item.find("span", class_="newPrice")
-                    price = re.sub(r"[^0-9.,]", "", price_container.text)
+                    #price = re.sub(r"[^0-9.,]", "", price_container.text)                 
+                    parts =price_container.text.split(",")
+                    integer_part = parts[0] # Take the part before the comma
+                    integer_part = integer_part.replace(".","")  
+                    price = int(integer_part)
 
                     rating_map = {
                         "r100": 5.0,

@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # hepsiburda_db.init_app(app)
 # vatan_db.init_app(app)
 #db = SQLAlchemy()
+
 db.init_app(app)
 
 async def start_tasks(database_uri):

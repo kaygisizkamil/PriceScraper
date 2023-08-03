@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from model.dbmodel import db
+from datetime import datetime, timezone
 
 
 
@@ -8,13 +9,13 @@ class VatanData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
-    price = db.Column(db.Float)
-    review_rating = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+    review_rating = db.Column(db.Float)  # Updated to a float field
     review_count = db.Column(db.Integer)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="vatan")  # Add the new column with the default value "vatan"
-    saved_time = db.Column(db.DateTime, default=datetime.utcnow)  # Add the new column for timestamp
+    saved_time = db.Column(db.DateTime, default=datetime.now(timezone.utc))  # Add the new column for timestamp
 
     def __init__(self, product_name, brand_name, price, review_rating, review_count, product_link, image_link):
         self.product_name = product_name
@@ -32,13 +33,13 @@ class VatanDataReadOnly(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
-    price = db.Column(db.Float)
-    review_rating = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+    review_rating = db.Column(db.Float)  # Updated to a float field
     review_count = db.Column(db.Integer)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="vatan")  # Add the new column with the default value "vatan"
-    saved_time = db.Column(db.DateTime, default=datetime.utcnow)  # Add the new column for timestamp
+    saved_time = db.Column(db.DateTime, default=datetime.now(timezone.utc))  # Add the new column for timestamp
 
     def __init__(self, product_name, brand_name, price, review_rating, review_count, product_link, image_link):
         self.product_name = product_name
