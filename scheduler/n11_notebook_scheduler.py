@@ -1,22 +1,22 @@
-from service.vatan_notebook_service import get_product_data
-from model.vatandatas import VatanData
 import asyncio
 from sqlalchemy.orm import scoped_session, sessionmaker
+from service.n11_notebook_service import get_product_data
 from flask_sqlalchemy import SQLAlchemy
+from model.n11_datas import N11Data
 
 
+async def schedule_task_for_n11(app, db, database_uri):
+    initial_data_extraction_complete = False
+    data_extraction_lock = asyncio.Lock()
 
-initial_data_extraction_complete = False
-data_extraction_lock = asyncio.Lock()
-async def schedule_task_for_vatan(app, db,database_uri):
-    global initial_data_extraction_complete
 
     while True:  # Run the loop indefinitely for periodic scheduling
         with app.app_context():  # Set up the Flask application context within the background thread
             try:
-                print("Notebook Scheduler started.")
-                for page_number in range(1, 15):
+                print("n11 Notebook Scheduler started.")
+                for page_number in range(1, 20):
                     product_data = await get_product_data(page_number)  # Await the async function here
+                    #print(product_data)
                     if not product_data:
                         # Continue to the next page if no reasonable product data is found
                         continue
@@ -25,7 +25,7 @@ async def schedule_task_for_vatan(app, db,database_uri):
                     async with data_extraction_lock:
                         session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=db.create_engine(database_uri)))
                         for single_product in product_data:
-                            product_data_entry = VatanData(
+                            product_data_entry = N11Data(
                                 product_name=single_product['product_name'],
                                 brand_name=single_product['brand_name'],
                                 price=single_product['price'],
@@ -39,14 +39,15 @@ async def schedule_task_for_vatan(app, db,database_uri):
                         session.commit()
                         session.remove()
 
-                        print(f"Data from URL: https://www.vatanbilgisayar.com/notebook/?page={page_number} saved to the database.")
+                        print(f"Data from URL:  n1  {page_number} saved to the database.")
+
 
                 # Mark initial data extraction as complete after the first iteration is done
                 if not initial_data_extraction_complete:
                     initial_data_extraction_complete = True
 
             except KeyboardInterrupt:
-                print("Notebook Scheduler interrupted.")
+                print("n11 Notebook Scheduler interrupted.")
 
             # Sleep for the specified interval (60 seconds)
             await asyncio.sleep(60)

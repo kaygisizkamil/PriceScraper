@@ -26,6 +26,8 @@ async def get_product_data_infos(session, page_number):
         }
 
         async def get_product_and_image_data(page_url):
+            product_data_list = []
+
             response = await session.get(page_url, headers=headers)
             soup = BeautifulSoup(await response.text(), "html.parser")
             script_tags = soup.find_all("script", type="text/javascript")
