@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from app import db
 
-db = SQLAlchemy()
+
 
 class VatanData(db.Model):
     id = db.Column(db.Integer, primary_key=True)

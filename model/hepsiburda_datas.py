@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from model.dbmodel import db
 
-db = SQLAlchemy()
 
 class HepsiburadaData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -9,7 +9,7 @@ class HepsiburadaData(db.Model):
     brand_name = db.Column(db.String(50))
     price = db.Column(db.String(50))
     review_rating = db.Column(db.String(50))
-    review_count = db.Column(db.db.String(50))
+    review_count = db.Column(db.String(50))
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="hepsiburada")  # Add the new column with the default value "hepsiburada"
@@ -33,7 +33,7 @@ class HepsiburadaDataReadOnly(db.Model):
     brand_name = db.Column(db.String(50))
     price = db.Column(db.String(50))
     review_rating = db.Column(db.String(50))
-    review_count = db.Column(db.db.String(50))
+    review_count = db.Column(db.String(50))
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="hepsiburada")  # Add the new column with the default value "hepsiburada"

@@ -1,15 +1,16 @@
-import time
-import sched
-import threading
 from service.vatan_notebook_service import get_product_data
-from model.vatandatas import VatanData, db
+from model.vatandatas import VatanData
 import asyncio
 from sqlalchemy.orm import scoped_session, sessionmaker
+from flask_sqlalchemy import SQLAlchemy
+from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada
+
+
+
 
 initial_data_extraction_complete = False
-data_extraction_lock = asyncio.Lock()  # Use asyncio.Lock instead of threading.Lock()
-
-async def schedule_task_for_vatan( app, database_uri):
+data_extraction_lock = asyncio.Lock()
+async def schedule_task_for_vatan(app,db, database_uri):
     global initial_data_extraction_complete
 
     while True:  # Run the loop indefinitely for periodic scheduling
@@ -50,4 +51,4 @@ async def schedule_task_for_vatan( app, database_uri):
                 print("Notebook Scheduler interrupted.")
 
             # Sleep for the specified interval (60 seconds)
-            await asyncio.sleep(120)
+            await asyncio.sleep(60)

@@ -1,14 +1,12 @@
 import asyncio
-import scheduler.hepsiburda_notebook_scheduler
 from sqlalchemy.orm import scoped_session, sessionmaker
 from service.hepsiburda_notebook_service import get_product_data
-from model.hepsiburda_datas import HepsiburadaData, db
-
-initial_data_extraction_complete = False
-data_extraction_lock = asyncio.Lock()
+from model.hepsiburda_datas import HepsiburadaData
+from flask_sqlalchemy import SQLAlchemy
 
 
-async def schedule_task_for_hepsiburada(app, database_uri):
+
+async def schedule_task_for_hepsiburada(app, db, database_uri):
     initial_data_extraction_complete = False
     data_extraction_lock = asyncio.Lock()
 
@@ -18,7 +16,7 @@ async def schedule_task_for_hepsiburada(app, database_uri):
                 print("Hepsiburada Notebook Scheduler started.")
                 for page_number in range(1, 15):
                     product_data = await get_product_data(page_number)  # Await the async function here
-                    print(product_data)
+                    #print(product_data)
                     if not product_data:
                         # Continue to the next page if no reasonable product data is found
                         continue

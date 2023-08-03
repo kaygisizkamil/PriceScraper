@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify
+
 from model.hepsiburda_datas import HepsiburadaDataReadOnly
 
 hepsiburada_blueprint = Blueprint('hepsiburada', __name__)
-
-@hepsiburada_blueprint.route('/api/hepsiburada/notebooks/getall', methods=['GET'])
+@hepsiburada_blueprint.route('/notebooks/getall', methods=['GET'])
 def hepsiburada_get_all_notebooks():
     # Fetch data from the read-only table (HepsiburadaDataReadOnly)
     all_notebooks = HepsiburadaDataReadOnly.query.all()
