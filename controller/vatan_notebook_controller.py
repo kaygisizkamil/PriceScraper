@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify
 from model.vatandatas import VatanDataReadOnly
 
 vatan_blueprint = Blueprint('vatan', __name__)
-@vatan_blueprint.route('/api/vatan/notebooks/getall', methods=['GET'])
+@vatan_blueprint.route('/notebooks/getall', methods=['GET'])
 def vatan_get_all_notebooks():
     # Fetch data from the read-only table (ProductDataReadOnly)
     all_notebooks = VatanDataReadOnly.query.all()
