@@ -3,6 +3,7 @@ import asyncio
 from bs4 import BeautifulSoup
 import re
 import urllib.parse
+from decimal import Decimal
 
 async def get_product_data_infos(session, page_number):
     try:
@@ -70,10 +71,11 @@ async def get_product_data_infos(session, page_number):
         for i, (product, image_link, price, rating, count, decoded_url) in enumerate(zip(product_data, image_links, prices, review_ratings, review_counts, decoded_urls)):
             _, brand, name = product
             name = name.rstrip('\\')
-            parts =price.split(",")
+            parts = price.split(",")
             integer_part = parts[0] # Take the part before the comma
-            integer_part = integer_part.replace(".","")  
-            price = int(integer_part)
+            integer_part = Decimal(integer_part.replace(".",""))
+            price = integer_part
+            if(len(decoded_url)>255):continue
 
             product_data_lists.append({
                 "product_name": name,

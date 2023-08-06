@@ -15,7 +15,7 @@ class VatanData(db.Model):
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="vatan")  # Add the new column with the default value "vatan"
-    saved_time = db.Column(db.DateTime, default=datetime.now(timezone.utc))  # Add the new column for timestamp
+    saved_time = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc).replace(second=0, microsecond=0))
 
     def __init__(self, product_name, brand_name, price, review_rating, review_count, product_link, image_link):
         self.product_name = product_name
@@ -39,7 +39,7 @@ class VatanDataReadOnly(db.Model):
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="vatan")  # Add the new column with the default value "vatan"
-    saved_time = db.Column(db.DateTime, default=datetime.now(timezone.utc))  # Add the new column for timestamp
+    saved_time = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc).replace(second=0, microsecond=0))
 
     def __init__(self, product_name, brand_name, price, review_rating, review_count, product_link, image_link):
         self.product_name = product_name

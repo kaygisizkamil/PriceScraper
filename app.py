@@ -7,6 +7,9 @@ from model.dbmodel import db
 from model.hepsiburda_datas import HepsiburadaData 
 from model.vatandatas import VatanData
 from model.n11_datas import N11Data
+from model.data_from_different_sources import From_different_sources
+
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -17,7 +20,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 #db = SQLAlchemy()
 
 db.init_app(app)
-
+with app.app_context():
+        db.create_all()
 async def start_tasks(database_uri):
     from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada
     from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan
@@ -25,6 +29,9 @@ async def start_tasks(database_uri):
     from controller.n11_notebook_controller import n11_blueprint
     from controller.vatan_notebook_controller import vatan_blueprint
     from controller.hepsiburda_notebook_controller import hepsiburada_blueprint
+    from scheduler.transform_data_scheduler import   scheduler
+    
+
 
 
 
@@ -37,25 +44,29 @@ async def start_tasks(database_uri):
     loop = asyncio.get_event_loop()
 
     # Run the scheduler for the Hepsiburada notebook in the current event loop
-    n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
-    hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Pass the database URI as a parameter
-    vatan_task = asyncio.create_task(schedule_task_for_vatan(app,db, database_uri))
+   # n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
+    #hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Pass the database URI as a parameter
+    #vatan_task = asyncio.create_task(schedule_task_for_vatan(app,db, database_uri))
+    transform_task=asyncio.create_task(scheduler(app,db, database_uri))
+
+
     
     # Run the scheduler in the current event loop
-    await hepsiburada_task
-    await vatan_task
-    await n11_task
+    #await hepsiburada_task
+    #await vatan_task
+    #await n11_task
+    await transform_task 
+
 if __name__ == "__main__":
     # Create the database tables based on the models
-    with app.app_context():
-        db.create_all()
+   
 
     server_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000})
     server_thread.start()
     try:
-        # Run the async tasks in the event loop
-        asyncio.run(start_tasks(app.config['SQLALCHEMY_DATABASE_URI']))  # Pass the database URI as a parameter        
-        server_thread.join()
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(start_tasks(app.config['SQLALCHEMY_DATABASE_URI']))
+        server_thread.join()    
 
     except KeyboardInterrupt:
         print("Interrupted.")

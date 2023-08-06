@@ -3,6 +3,11 @@ from model.vatandatas import VatanData
 import asyncio
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_sqlalchemy import SQLAlchemy
+import asyncio
+import aiohttp
+import asyncpg
+from dateutil import parser
+
 
 
 
