@@ -44,7 +44,7 @@ async def start_tasks(database_uri):
     loop = asyncio.get_event_loop()
 
     # Run the scheduler for the Hepsiburada notebook in the current event loop
-   # n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
+    #n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
     #hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Pass the database URI as a parameter
     #vatan_task = asyncio.create_task(schedule_task_for_vatan(app,db, database_uri))
     transform_task=asyncio.create_task(scheduler(app,db, database_uri))
