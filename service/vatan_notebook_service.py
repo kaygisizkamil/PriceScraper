@@ -47,7 +47,7 @@ async def fetch_product_data(session, page_number):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
         }
 
-
+    
         async with session.get(url, headers=headers) as response:
             soup = BeautifulSoup(await response.text(), "html.parser")
 

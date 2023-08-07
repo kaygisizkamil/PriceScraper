@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
 
 # Create an instance of SQLAlchemy
-db = SQLAlchemy()
 
 class From_different_sources(db.Model):
     id = db.Column(db.Integer, primary_key=True)
