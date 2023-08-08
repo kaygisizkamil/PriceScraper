@@ -10,55 +10,56 @@ import requests
 
 
 
-proxy_url = requests.get(
-"https://ipv4.webshare.io/",
-proxies={
-"http": "http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/",
-"https": "http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/"
-}
-).text
-
 async def fetch_and_parse_product_data(session, data):
     results = []
-    headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36",
-    "Cache-Control": "max-age=0",
-    "Sec-Ch-Ua": "",
-    "Sec-Ch-Ua-Mobile": "?0",
-    "Upgrade-Insecure-Requests": "1",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "Service-Worker-Navigation-Preload": "true",
-    "Sec-Fetch-Site": "same-origin",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-User": "?1",
-    "Sec-Fetch-Dest": "document",
-    "Referer": "https://www.vatanbilgisayar.com/",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "en-US,en;q=0.9",
-    }
+  #  concurrency_limit = 10  # You can adjust this value as needed
+   # semaphore = asyncio.Semaphore(concurrency_limit)
+    async def process_data_for_single_product(data_tmp):
+            try:
+                #url = "https://www.vatanbilgisayar.com/dell-vostro-14-3400-11-nesil-core-i5-1135g7-8gb-256gb-1tb-15-6inc-mx330-2gb-w11.html"
 
-    async def fetch_data(session, data_tmp, proxy_url):
-        specs = {
-            'product_name': None,
-            'product_link': None,
-            'image_link': None,
-            'fromWhere': None,
-            'saved_time': None,
-            'cpu': None,
-            'ram': None,
-            'screen': None,
-            'gpu': None,
-            'os': None,
-            'ssd': None,
-            'hdd': None
-        }
-        specs['product_name'] = data_tmp['product_name']
-        specs['product_link'] = data_tmp['product_link']
-        specs['image_link'] = data_tmp['image_link']
-        specs['fromWhere'] = data_tmp['fromWhere']
-        specs['saved_time'] = data_tmp['saved_time']
-        
-        async with session.get(data_tmp['product_link'], headers=headers, proxy=proxy_url) as response:
+                    headers = {
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36",
+                        "Cache-Control": "max-age=0",
+                        "Sec-Ch-Ua": "",
+                        "Sec-Ch-Ua-Mobile": "?0",
+                        "Sec-Ch-Ua-Platform": "\"\"",
+                        "Upgrade-Insecure-Requests": "1",
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                        "Service-Worker-Navigation-Preload": "true",
+                        "Sec-Fetch-Site": "same-origin",
+                        "Sec-Fetch-Mode": "navigate",
+                        "Sec-Fetch-User": "?1",
+                        "Sec-Fetch-Dest": "document",
+                        "Referer": "https://www.hepsiburada.com/",
+                        "Accept-Encoding": "gzip, deflate",
+                        "Accept-Language": "en-US,en;q=0.9",
+                    }
+                
+                    #async with aiohttp.ClientSession() as session:
+                    specs = {
+                        'product_name':None,
+                        'product_link':None,
+                        'image_link':None,
+                        'fromWhere':None,
+                        'saved_time':None,
+                        'cpu': None,
+                        'ram': None,
+                        'screen': None,
+                        'gpu': None,
+                        'os': None,
+                        'ssd': None,
+                        'hdd': None
+                    }
+                    specs['product_name']=data_tmp['product_name']
+                    specs['product_link']=data_tmp['product_link']
+                    specs['image_link']=data_tmp['image_link']
+                    specs['fromWhere']=data_tmp['fromWhere']
+                    specs['saved_time']=data_tmp['saved_time']
+                    proxy="http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/"
+                    
+
+                    async with session.get(data_tmp['product_link'], headers=headers, proxy=proxy) as response:
                         soup = BeautifulSoup(await response.text(), "html.parser")
                         property_tab_items = soup.find_all('div', class_='col-lg-6 col-md-6 col-sm-12 col-xs-12 property-tab-item')
                         
@@ -171,27 +172,35 @@ async def fetch_and_parse_product_data(session, data):
                                             if len(capacities) >= 2:
                                                 specs['ssd'] = capacities[1]
                                                 specs['hdd']=None
-                        results.append(specs)
+                        return specs
+                        #results.append(specs)
+                                                
+                        #print(specs)    
+            except aiohttp.ClientError as client_error:
+                print(f"Aiohttp ClientError: {client_error}")
+                return None
+            except Exception as e:
+                print(f"Exception: {e} while processing data, continuing...")
+                return None
+# Chunk the data for parallel processing
+    chunk_size = 50
+    chunked_data = [data[i:i + chunk_size] for i in range(0, len(data), chunk_size)]
 
-    tasks = []
-
-    async with aiohttp.ClientSession() as session:
-        for item in data:
-            tasks.append(fetch_data(session, item, proxy_url))
-        await asyncio.gather(*tasks)
+    for chunk in chunked_data:
+        tasks = [process_data_for_single_product(data_tmp) for data_tmp in chunk]
+        chunk_results = await asyncio.gather(*tasks)
+        results.extend(chunk_results)
 
     return results
-
-
-async def fetch_data_from_vatan_source(session: aiohttp.ClientSession, page_number: int)-> list:
-        url = f'http://localhost:5000/api/vatan/notebooks/getall?page={page_number}'
-
-        try:
-            async with session.get(url) as response:
-                data = await response.json()
-                #print(data)
-                return data
-        except aiohttp.ClientError as e:
-            print(f"An error occurred while fetching data from source, page {page_number}: {e}")
-            return []
     
+async def fetch_data_from_vatan_source(session: aiohttp.ClientSession, page_number: int)-> list:
+    url = f'http://localhost:5000/api/vatan/notebooks/getall?page={page_number}'
+
+    try:
+        async with session.get(url) as response:
+            data = await response.json()
+            #print(data)
+            return data
+    except aiohttp.ClientError as e:
+        print(f"An error occurred while fetching data from source, page {page_number}: {e}")
+        return []

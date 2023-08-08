@@ -13,7 +13,7 @@ from model.data_from_different_sources import From_different_sources
 import asyncpg
 import datetime
 from dateutil import parser
-
+import requests
 
 from service. transform_data_service import fetch_data_from_vatan_source
 
@@ -27,6 +27,7 @@ from service.transform_data_service import  fetch_and_parse_product_data
 from sqlalchemy.orm import sessionmaker
 
 async def process_data(session, data, database_uri, db, app):
+    
     
     with app.app_context():
         start = time.time()
@@ -60,6 +61,7 @@ async def process_data(session, data, database_uri, db, app):
 
 
 async def fetch_and_process_data(app, db, database_uri):
+    
     async with aiohttp.ClientSession() as session:
         hb_page = 1
         n11_page = 1

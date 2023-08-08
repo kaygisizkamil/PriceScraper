@@ -14,7 +14,7 @@ def vatan_get_all_notebooks():
     page = request.args.get('page', 1, type=int)
     
     # Number of items per page (adjust this value based on your requirements)
-    items_per_page = 100
+    items_per_page = 50 #wwas 100 
 
     # Calculate the offset to fetch the data for the requested page
     offset = (page - 1) * items_per_page
