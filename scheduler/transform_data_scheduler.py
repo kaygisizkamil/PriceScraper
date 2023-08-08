@@ -67,8 +67,8 @@ async def fetch_and_process_data(app, db, database_uri):
         n11_page = 1
         vatan_page = 1
 
-        hb_has_data = True
-        n11_has_data = True
+        hb_has_data = False
+        n11_has_data = False
         vatan_has_data = True
 
         while hb_has_data or n11_has_data or vatan_has_data:
@@ -87,8 +87,8 @@ async def fetch_and_process_data(app, db, database_uri):
                 n11_page += 1
             if vatan_has_data:
                 vatan_page += 1
-            if vatan_page==14 :
-                break
+           # if vatan_page==14 :
+            #    break
 
     print("Number of requests made by each service:")
     print("Hepsiburada:", hb_page - 1)
