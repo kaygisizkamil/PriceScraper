@@ -6,71 +6,59 @@ from dateutil import parser
 from model.hepsiburda_datas import HepsiburadaData
 from model.data_from_different_sources import From_different_sources
 from sqlalchemy.orm import scoped_session, sessionmaker
+import requests
 
 
 
- 
-    
- 
-async def fetch_and_parse_product_data(session,data):
+proxy_url = requests.get(
+"https://ipv4.webshare.io/",
+proxies={
+"http": "http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/",
+"https": "http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/"
+}
+).text
+
+async def fetch_and_parse_product_data(session, data):
     results = []
-    specs = {
-        'product_name':None,
-        'product_link':None,
-        'image_link':None,
-        'fromWhere':None,
-        'saved_time':None,
-        'cpu': None,
-        'ram': None,
-        'screen': None,
-        'gpu': None,
-        'os': None,
-        'ssd': None,
-        'hdd': None
+    headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36",
+    "Cache-Control": "max-age=0",
+    "Sec-Ch-Ua": "",
+    "Sec-Ch-Ua-Mobile": "?0",
+    "Upgrade-Insecure-Requests": "1",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Service-Worker-Navigation-Preload": "true",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-User": "?1",
+    "Sec-Fetch-Dest": "document",
+    "Referer": "https://www.vatanbilgisayar.com/",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-US,en;q=0.9",
     }
-    try:
-        #url = "https://www.vatanbilgisayar.com/dell-vostro-14-3400-11-nesil-core-i5-1135g7-8gb-256gb-1tb-15-6inc-mx330-2gb-w11.html"
 
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36",
-                "Cache-Control": "max-age=0",
-                "Sec-Ch-Ua": "",
-                "Sec-Ch-Ua-Mobile": "?0",
-                "Sec-Ch-Ua-Platform": "\"\"",
-                "Upgrade-Insecure-Requests": "1",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-                "Service-Worker-Navigation-Preload": "true",
-                "Sec-Fetch-Site": "same-origin",
-                "Sec-Fetch-Mode": "navigate",
-                "Sec-Fetch-User": "?1",
-                "Sec-Fetch-Dest": "document",
-                "Referer": "https://www.hepsiburada.com/",
-                "Accept-Encoding": "gzip, deflate",
-                "Accept-Language": "en-US,en;q=0.9",
-            }
+    async def fetch_data(session, data_tmp, proxy_url):
+        specs = {
+            'product_name': None,
+            'product_link': None,
+            'image_link': None,
+            'fromWhere': None,
+            'saved_time': None,
+            'cpu': None,
+            'ram': None,
+            'screen': None,
+            'gpu': None,
+            'os': None,
+            'ssd': None,
+            'hdd': None
+        }
+        specs['product_name'] = data_tmp['product_name']
+        specs['product_link'] = data_tmp['product_link']
+        specs['image_link'] = data_tmp['image_link']
+        specs['fromWhere'] = data_tmp['fromWhere']
+        specs['saved_time'] = data_tmp['saved_time']
         
-            async with aiohttp.ClientSession() as session:
-                for data_tmp in data:
-                    specs = {
-                        'product_name':None,
-                        'product_link':None,
-                        'image_link':None,
-                        'fromWhere':None,
-                        'saved_time':None,
-                        'cpu': None,
-                        'ram': None,
-                        'screen': None,
-                        'gpu': None,
-                        'os': None,
-                        'ssd': None,
-                        'hdd': None
-                    }
-                    specs['product_name']=data_tmp['product_name']
-                    specs['product_link']=data_tmp['product_link']
-                    specs['image_link']=data_tmp['image_link']
-                    specs['fromWhere']=data_tmp['fromWhere']
-                    specs['saved_time']=data_tmp['saved_time']
-                    async with session.get(data_tmp['product_link'], headers=headers) as response:
+        async with session.get(data_tmp['product_link'], headers=headers, proxy=proxy_url) as response:
                         soup = BeautifulSoup(await response.text(), "html.parser")
                         property_tab_items = soup.find_all('div', class_='col-lg-6 col-md-6 col-sm-12 col-xs-12 property-tab-item')
                         
@@ -184,46 +172,26 @@ async def fetch_and_parse_product_data(session,data):
                                                 specs['ssd'] = capacities[1]
                                                 specs['hdd']=None
                         results.append(specs)
-                                                
-                        #print(specs)
-    except Exception as e:
-            print(f"Exception {e} while processing data, continuing...")
-   
+
+    tasks = []
+
+    async with aiohttp.ClientSession() as session:
+        for item in data:
+            tasks.append(fetch_data(session, item, proxy_url))
+        await asyncio.gather(*tasks)
+
     return results
+
+
 async def fetch_data_from_vatan_source(session: aiohttp.ClientSession, page_number: int)-> list:
-    url = f'http://localhost:5000/api/vatan/notebooks/getall?page={page_number}'
+        url = f'http://localhost:5000/api/vatan/notebooks/getall?page={page_number}'
 
-    try:
-        async with session.get(url) as response:
-            data = await response.json()
-            print(data)
-            return data
-    except aiohttp.ClientError as e:
-        print(f"An error occurred while fetching data from source, page {page_number}: {e}")
-        return []
-async def fetch_data_from_hepsiburda_source(session: aiohttp.ClientSession, page_number: int) -> list:
-    url = f'http://localhost:5000/api/hepsiburda/notebooks/getall?page={page_number}'
-
-    try:
-        async with session.get(url) as response:
-            data = await response.json()
-            return data
-    except aiohttp.ClientError as e:
-        print(f"An error occurred while fetching data from source, page {page_number}: {e}")
-        return []
-
-
-
-
-
-async def fetch_data_from_n11_source(session: aiohttp.ClientSession, page_number: int) -> list:
-    url = f'http://localhost:5000/api/n11/notebooks/getall?page={page_number}'
-
-    try:
-        async with session.get(url) as response:
-            data = await response.json()
-            return data
-    except aiohttp.ClientError as e:
-        print(f"An error occurred while fetching data from source, page {page_number}: {e}")
-        return []
-
+        try:
+            async with session.get(url) as response:
+                data = await response.json()
+                #print(data)
+                return data
+        except aiohttp.ClientError as e:
+            print(f"An error occurred while fetching data from source, page {page_number}: {e}")
+            return []
+    

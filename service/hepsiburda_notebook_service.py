@@ -42,6 +42,8 @@ async def get_product_data_infos(session, page_number):
 
                     # Extract image links from the script tag
                     image_links = re.findall(r'"link":"(https://productimages.hepsiburada.net.*?)",', script_text)
+                    # Replace {size} in image links with the specified size
+                    image_links = [link.replace("{size}", str(200)) for link in image_links]
 
                     # Extract prices
                     # Extract prices 

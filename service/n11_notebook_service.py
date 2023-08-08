@@ -35,8 +35,6 @@ async def extract_product_properties(session, page_number):
                     product_link = product_item.find("a", class_="plink")
                     product_id = product_link["data-id"]
                     brand, name = product_link["title"].split(" ", 1)
-                    name = f"{brand} {name}"
-
 
                     # Extract image link
                     image_link = product_item.find("img", class_="lazy")["data-original"]
