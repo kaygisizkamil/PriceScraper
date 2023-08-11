@@ -50,4 +50,4 @@ async def schedule_task_for_n11(app, db, database_uri):
                 print("n11 Notebook Scheduler interrupted.")
 
             # Sleep for the specified interval (60 seconds)
-            await asyncio.sleep(60)
+            await asyncio.sleep(240)

@@ -12,7 +12,7 @@ import requests
 
 async def fetch_and_parse_product_data(session, data):
     results = []
-  #  concurrency_limit = 10  # You can adjust this value as needed
+  #  concurrency_limit = 10  
    # semaphore = asyncio.Semaphore(concurrency_limit)
     async def process_data_for_single_product(data_tmp):
             try:
@@ -38,6 +38,8 @@ async def fetch_and_parse_product_data(session, data):
                 
                     #async with aiohttp.ClientSession() as session:
                     specs = {
+                        'price':None,
+                        'brand_name':None,
                         'product_name':None,
                         'product_link':None,
                         'image_link':None,
@@ -49,8 +51,14 @@ async def fetch_and_parse_product_data(session, data):
                         'gpu': None,
                         'os': None,
                         'ssd': None,
-                        'hdd': None
+                        'hdd': None,
+                        'review_rating':None,
+                        'review_count':None
                     }
+                    specs['review_rating']=data_tmp['review_rating']
+                    specs['review_count']=data_tmp['review_count']
+                    specs['price']=data_tmp['price']
+                    specs['brand_name']=data_tmp['brand_name']
                     specs['product_name']=data_tmp['product_name']
                     specs['product_link']=data_tmp['product_link']
                     specs['image_link']=data_tmp['image_link']

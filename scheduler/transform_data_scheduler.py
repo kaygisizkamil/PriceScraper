@@ -38,6 +38,10 @@ async def process_data(session, data, database_uri, db, app):
         notebook_data_list = []
         for specs in product_details:
             notebook_data = From_different_sources(
+                review_count=specs['review_count'],
+                review_rating=specs['review_rating'],
+                price=specs['price'],
+                brand_name=specs["brand_name"],
                 product_name=specs["product_name"],
                 product_link=specs["product_link"],
                 image_link=specs['image_link'],
@@ -105,4 +109,4 @@ async def scheduler(app, db, database_uri):
         
         print(f"Data fetch completed in {time.time() - start} seconds")
          
-        await asyncio.sleep(180)  # Run again every 4 minutes
+        await asyncio.sleep(240)  # Run again every 4 minutes

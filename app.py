@@ -8,9 +8,11 @@ from model.hepsiburda_datas import HepsiburadaData
 from model.vatandatas import VatanData
 from model.n11_datas import N11Data
 from model.data_from_different_sources import From_different_sources
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
@@ -29,6 +31,7 @@ async def start_tasks(database_uri):
     from controller.n11_notebook_controller import n11_blueprint
     from controller.vatan_notebook_controller import vatan_blueprint
     from controller.hepsiburda_notebook_controller import hepsiburada_blueprint
+    from controller.aggregated_data_controller import all_brands_blueprint,all_processors_blueprint,all_rams_blueprint,all_screen_sizes_blueprint,all_cheapest_computers_blueprint
     from scheduler.transform_data_scheduler import   scheduler
     
 
@@ -38,14 +41,24 @@ async def start_tasks(database_uri):
     app.register_blueprint(hepsiburada_blueprint, url_prefix='/api/hepsiburda')
     app.register_blueprint(vatan_blueprint,url_prefix='/api/vatan')
     app.register_blueprint(n11_blueprint,url_prefix='/api/n11')
+    app.register_blueprint(all_brands_blueprint,url_prefix='/api/aggregated')
+    app.register_blueprint(all_processors_blueprint,url_prefix='/api/aggregated')
+    app.register_blueprint(all_rams_blueprint,url_prefix='/api/aggregated')
+    app.register_blueprint(all_screen_sizes_blueprint,url_prefix='/api/aggregated')
+    app.register_blueprint(all_cheapest_computers_blueprint,url_prefix='/api/aggregated')
+
+
+    
+
+
 
 
     # Get the current event loop (Flask's event loop)
     loop = asyncio.get_event_loop()
 
     # Run the scheduler for the Hepsiburada notebook in the current event loop
-    n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
-    hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Pass the database URI as a parameter
+    #n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
+    #hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Pass the database URI as a parameter
     vatan_task = asyncio.create_task(schedule_task_for_vatan(app,db, database_uri))
     transform_task=asyncio.create_task(scheduler(app,db, database_uri))
 
@@ -53,9 +66,9 @@ async def start_tasks(database_uri):
     await transform_task 
 
     # Run the scheduler in the current event loop
-    await hepsiburada_task
+    #await hepsiburada_task
     await vatan_task
-    await n11_task
+    #await n11_task
 
 if __name__ == "__main__":
     # Create the database tables based on the models

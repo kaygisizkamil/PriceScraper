@@ -9,6 +9,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 class From_different_sources(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    price = db.Column(db.Integer)
+    brand_name = db.Column(db.String(50))
+    review_rating = db.Column(db.Float)
+    review_count = db.Column(db.Integer)
     product_name = db.Column(db.String(255))
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
@@ -22,9 +26,13 @@ class From_different_sources(db.Model):
     ssd = db.Column(db.String(255), default=None)
     hdd = db.Column(db.String(255), default=None)
 
-    def __init__(self, product_name, product_link, saved_time,image_link,fromWhere, cpu=None, ram=None, screen=None, gpu=None, os=None, ssd=None, hdd=None):
+    def __init__(self, product_name,price, product_link,review_rating,review_count, saved_time,image_link,fromWhere,brand_name, cpu=None, ram=None, screen=None, gpu=None, os=None, ssd=None, hdd=None):
         self.product_name = product_name
+        self.price=price
         self.saved_time = saved_time
+        self.review_rating = review_rating
+        self.review_count = review_count
+        self.brand_name=brand_name
         self.product_link = product_link
         self.image_link=image_link
         self.cpu = cpu
@@ -43,6 +51,8 @@ class From_different_sourcesReadOnly(db.Model):
         {'extend_existing': True},
     )
     id = db.Column(db.Integer, primary_key=True)
+    price = db.Column(db.Integer)
+    brand_name = db.Column(db.String(50))
     product_name = db.Column(db.String(255))
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
@@ -56,8 +66,12 @@ class From_different_sourcesReadOnly(db.Model):
     ssd = db.Column(db.String(255), default=None)
     hdd = db.Column(db.String(255), default=None)
 
-    def __init__(self, product_name, product_link, saved_time,image_link,fromWhere, cpu=None, ram=None, screen=None, gpu=None, os=None, ssd=None, hdd=None):
+    def __init__(self, product_name, product_link,price,review_rating,review_count, saved_time,image_link,fromWhere,brand_name, cpu=None, ram=None, screen=None, gpu=None, os=None, ssd=None, hdd=None):
         self.product_name = product_name
+        self.price=price
+        self.brand_name=brand_name
+        self.review_rating = review_rating
+        self.review_count = review_count
         self.saved_time = saved_time
         self.product_link = product_link
         self.image_link=image_link
