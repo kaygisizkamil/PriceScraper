@@ -13,7 +13,7 @@ class HepsiburadaData(db.Model):
     review_count = db.Column(db.Integer)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
-    fromWhere = db.Column(db.String(50), default="hepsiburada")  # Add the new column with the default value "hepsiburada"
+    fromWhere = db.Column(db.String(50), default="hepsiburada")  
     saved_time = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc).replace(second=0, microsecond=0))
 
     def __init__(self, product_name, brand_name, price, review_rating, review_count, product_link, image_link):
@@ -25,10 +25,9 @@ class HepsiburadaData(db.Model):
         self.product_link = product_link
         self.image_link = image_link
 
-# Define the HepsiburadaDataReadOnly model for the read-only copy
 class HepsiburadaDataReadOnly(db.Model):
     __tablename__ = 'hepsiburada_data'  # Same table name as the original HepsiburadaData table
-    __table_args__ = {'extend_existing': True}  # Use this option to extend the existing table
+    __table_args__ = {'extend_existing': True}  # to extend the existing table
     id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
