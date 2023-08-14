@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from model.data_from_different_sources import From_different_sourcesReadOnly
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request,json
 from datetime import datetime, timedelta
 from flask import jsonify, make_response
 from sqlalchemy import func
@@ -11,12 +11,15 @@ from sqlalchemy import  distinct
 from sqlalchemy import select, desc, text, func,asc,column
 
 
+
 all_brands_blueprint = Blueprint('unique_brands', __name__)
 all_processors_blueprint = Blueprint('all_processors', __name__)
 all_rams_blueprint=Blueprint('all_rams', __name__)
 all_screen_sizes_blueprint=Blueprint('all_screens',__name__)
 all_cheapest_computers_blueprint=Blueprint('all_cheapests',__name__)
 all_price_range_blueprint = Blueprint('all_price_range', __name__)
+all_sidebar_computers_blueprint=Blueprint('/sidebar/getall',__name__)
+
 
 
 
@@ -173,14 +176,14 @@ def get_cheapest_options():
 
     # Construct the final query with pagination and sorting
     pagination_query = f"""
-        WITH from_different_sources AS (
+        WITH ranked AS (
             SELECT
                 *,
                 ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column}) AS rn
             FROM from_different_sources
         )
         SELECT *
-        FROM from_different_sources fds 
+        FROM ranked fds 
         WHERE rn = 1
         ORDER BY {order_by_column}
         LIMIT :limit OFFSET :offset;
@@ -264,3 +267,118 @@ ON main.product_name = subquery.product_name
 WHERE main.saved_time >= (NOW() - INTERVAL 5000 MINUTE) ORDER BY main.price ASC, main.saved_time ASC
 LIMIT items_per_page OFFSET offset;
 '''
+@all_sidebar_computers_blueprint.route('/sidebar/getall', methods=['GET'])
+def get_sidebar_options():
+    # Get selected values from query parameters
+    selected_values = request.args.get('selectedValues', '{}')
+    selected_values = json.loads(selected_values)
+    selected_column_mappings = {
+        'brands': 'brand_name',
+        'processors': 'cpu',
+        'rams': 'ram',
+        'screenSizes': 'screen',
+        'priceInterval': 'price'
+        # Add other mappings as needed
+    }
+
+    base_query = """
+        SELECT *
+        FROM from_different_sources fds
+        WHERE (fds.product_name, fds.brand_name, fds.saved_time) IN (
+            SELECT
+                product_name,
+                brand_name,
+                MAX(saved_time) AS latest_saved_time
+            FROM from_different_sources
+            GROUP BY product_name, brand_name
+        )
+    """
+    params = {}
+
+    brands = selected_values.get('brands')
+    processors = selected_values.get('processors')
+    rams = selected_values.get('rams')
+    screen_sizes = selected_values.get('screenSizes')
+    price_interval = selected_values.get('priceInterval')
+
+    if brands:
+        base_query += f" AND {selected_column_mappings['brands']} = ANY(:brands)"
+        params['brands'] = brands
+    if processors:
+        base_query += f" AND {selected_column_mappings['processors']} = ANY(:processors)"
+        params['processors'] = processors
+    if rams:
+        advanced_ram_conditions = []
+        for ram in rams:
+            # Remove the "+" sign and convert to lowercase before querying
+            ram = ram.replace('+', '').lower()
+            ram_condition = f"ram ILIKE '%{ram}%'"
+            advanced_ram_conditions.append(ram_condition)
+        ram_condition = " OR ".join(advanced_ram_conditions)
+        base_query += f" AND ({ram_condition})"
+    if screen_sizes:
+        advanced_screen_conditions = []
+        for screen_size in screen_sizes:
+            # Remove the "+" sign and convert to lowercase before querying
+            screen_size = screen_size.replace('+', '').lower()
+            screen_condition = f"screen ILIKE '%{screen_size}%'"
+            advanced_screen_conditions.append(screen_condition)
+        screen_condition = " OR ".join(advanced_screen_conditions)
+        base_query += f" AND ({screen_condition})"
+    if price_interval:
+        base_query += " AND price BETWEEN :min_price AND :max_price"
+        params['min_price'] = price_interval[0]
+        params['max_price'] = price_interval[1]
+
+    # Get the user's selected sorting option and handle default case
+    selected_sort_option = request.args.get('sort', 'ascendive_price')
+
+    # Determine which query to use based on the sorting option
+    if selected_sort_option == 'ascendive_price':
+        order_by_column = "price ASC"
+    elif selected_sort_option == 'descending_price':
+        order_by_column = "price DESC"
+    elif selected_sort_option == 'descendive_review_rating':
+        order_by_column = "review_rating ASC"
+    elif selected_sort_option == 'ascendive_review_count':
+        order_by_column = "review_count DESC"
+    elif selected_sort_option == 'descendive_review_count':
+        order_by_column = "review_count ASC"
+    elif selected_sort_option == 'ascendive_review_rating':
+        order_by_column = "review_rating DESC"
+    else:
+        return jsonify({"error": "Invalid sorting option"})
+
+    page = request.args.get('page', 1, type=int)
+    items_per_page = request.args.get('itemsPerPage', 20, type=int)  # Get items per page from query parameters
+    base_query += f" ORDER BY {order_by_column} LIMIT :limit OFFSET :offset"
+    params['limit'] = items_per_page
+    params['offset'] = (page - 1) * items_per_page
+
+    query_results = db.session.execute(text(base_query), params).fetchall()
+
+    # Prepare the results for JSON response
+    notebook_list = []
+    for notebook in query_results:
+        notebook_data = {
+            "product_name": notebook.product_name,
+            "brand_name": notebook.brand_name,
+            "price": notebook.price,
+            "review_rating": notebook.review_rating,
+            "review_count": notebook.review_count,
+            "product_link": notebook.product_link,
+            "image_link": notebook.image_link,
+            "fromWhere": notebook.fromWhere,
+            "cpu": notebook.cpu,
+            "ram": notebook.ram,
+            "screen": notebook.screen,
+            "gpu": notebook.gpu,
+            "os": notebook.os,
+            "ssd": notebook.ssd,
+            "hdd": notebook.hdd,
+            "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
+        }
+        notebook_list.append(notebook_data)
+
+    # Return the list of notebooks as a JSON response
+    return jsonify(notebook_list)
