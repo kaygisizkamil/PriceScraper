@@ -109,4 +109,4 @@ async def scheduler(app, db, database_uri):
         
         print(f"Data fetch completed in {time.time() - start} seconds")
          
-        await asyncio.sleep(240)  # Run again every 4 minutes
+        await asyncio.sleep(2400)  # Run again every 4 minutes

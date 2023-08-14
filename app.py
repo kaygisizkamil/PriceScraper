@@ -28,7 +28,7 @@ async def start_tasks(database_uri):
     from controller.n11_notebook_controller import n11_blueprint
     from controller.vatan_notebook_controller import vatan_blueprint
     from controller.hepsiburda_notebook_controller import hepsiburada_blueprint
-    from controller.aggregated_data_controller import all_brands_blueprint,all_processors_blueprint,all_rams_blueprint,all_screen_sizes_blueprint,all_cheapest_computers_blueprint
+    from controller.aggregated_data_controller import all_brands_blueprint,all_processors_blueprint,all_rams_blueprint,all_screen_sizes_blueprint,all_cheapest_computers_blueprint,all_price_range_blueprint
     from scheduler.transform_data_scheduler import   scheduler
     
 
@@ -41,20 +41,21 @@ async def start_tasks(database_uri):
     app.register_blueprint(all_rams_blueprint,url_prefix='/api/aggregated')
     app.register_blueprint(all_screen_sizes_blueprint,url_prefix='/api/aggregated')
     app.register_blueprint(all_cheapest_computers_blueprint,url_prefix='/api/aggregated')
+    app.register_blueprint(all_price_range_blueprint,url_prefix='/api/aggregated')
 
     # Flask event loopunu al
-    loop = asyncio.get_event_loop()
+  #  loop = asyncio.get_event_loop()
     #Background taski ekle
-    n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
-    hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Database uri'ini parametre olarak gecir
+   # n11_task=asyncio.create_task(schedule_task_for_n11(app,db,database_uri))
+    #hepsiburada_task = asyncio.create_task(schedule_task_for_hepsiburada(app,db,database_uri))  # Database uri'ini parametre olarak gecir
     vatan_task = asyncio.create_task(schedule_task_for_vatan(app,db, database_uri))
     transform_task=asyncio.create_task(scheduler(app,db, database_uri))
 
     #async await mantigi ile bir gorevin calismasinin digerini etkilememesi icin await ile gorevleri cagir
     await transform_task 
-    await hepsiburada_task
+    #await hepsiburada_task
     await vatan_task
-    await n11_task
+    #await n11_task
 
 if __name__ == "__main__":
    #serveri ayri bir threadde calisir

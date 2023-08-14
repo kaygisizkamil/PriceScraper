@@ -7,12 +7,16 @@ from sqlalchemy import func
 from model.dbmodel import db
 from sqlalchemy import func,or_,and_, cast,text
 from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy import  distinct
+from sqlalchemy import select, desc, text, func,asc,column
+
 
 all_brands_blueprint = Blueprint('unique_brands', __name__)
 all_processors_blueprint = Blueprint('all_processors', __name__)
 all_rams_blueprint=Blueprint('all_rams', __name__)
 all_screen_sizes_blueprint=Blueprint('all_screens',__name__)
 all_cheapest_computers_blueprint=Blueprint('all_cheapests',__name__)
+all_price_range_blueprint = Blueprint('all_price_range', __name__)
 
 
 
@@ -23,7 +27,7 @@ def get_distinct_checkbox_options():
         threshold_time = datetime.utcnow() - timedelta(minutes=5000)
 
         # Retrieve distinct checkbox options saved in the last 40 minutes
-        distinct_brands = db.session.query(From_different_sourcesReadOnly.brand_name.distinct()) \
+        distinct_brands = db.db.session.query(From_different_sourcesReadOnly.brand_name.distinct()) \
             .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
             .all()
 
@@ -51,7 +55,7 @@ def get_processor_options():
             keyword_list = ['intel', 'amd', 'm1', 'm2']
 
             # Retrieve distinct processor options for the selected brands saved in the last 40 minutes
-            processor_options = db.session.query(func.trim(From_different_sourcesReadOnly.cpu).label('processor')) \
+            processor_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.cpu).label('processor')) \
                                 .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
                                 .filter(func.lower(From_different_sourcesReadOnly.brand_name).in_([brand.lower() for brand in selected_brands])) \
                                 .filter(or_(*[text("lower(from_different_sources.cpu) SIMILAR TO '%(" + keyword + ")%'") for keyword in keyword_list])) \
@@ -88,7 +92,7 @@ def get_ram_options():
             threshold_time = datetime.utcnow() - timedelta(minutes=5000)
 
             # Retrieve distinct RAM options for the selected brands saved in the last 40 minutes
-            ram_options = db.session.query(func.trim(From_different_sourcesReadOnly.ram).label('ram')) \
+            ram_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.ram).label('ram')) \
                 .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
                 .filter(func.lower(From_different_sourcesReadOnly.brand_name).in_([brand.lower() for brand in selected_brands])) \
                 .distinct() \
@@ -117,7 +121,7 @@ def get_screen_size_options():
             threshold_time = datetime.utcnow() - timedelta(minutes=5000)
 
             # Retrieve distinct screen sizes for the selected brands saved in the last 40 minutes
-            screen_size_options = db.session.query(func.trim(From_different_sourcesReadOnly.screen).label('screen')) \
+            screen_size_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.screen).label('screen')) \
                 .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
                 .filter(func.lower(From_different_sourcesReadOnly.brand_name).in_([brand.lower() for brand in selected_brands])) \
                 .distinct() \
@@ -138,66 +142,57 @@ def get_screen_size_options():
     
     print(response)
     return response
-@all_cheapest_computers_blueprint.route('/cheapest/getall', methods=['GET'])
+#it was real challenging to do it using orm so i used raw sql
 @all_cheapest_computers_blueprint.route('/cheapest/getall', methods=['GET'])
 def get_cheapest_options():
-    page = request.args.get('page', 1, type=int)
-    
-    # Number of items per page (adjust this value based on your requirements)
+    # Define the number of items per page
     items_per_page = 20
 
-    # Calculate the offset to fetch the data for the requested page
+    # Calculate the page number and offset
+    page = request.args.get('page', 1, type=int)
     offset = (page - 1) * items_per_page
-    latest_saved_time = From_different_sourcesReadOnly.query.with_entities(From_different_sourcesReadOnly.saved_time) \
-                                                     .order_by(From_different_sourcesReadOnly.saved_time.desc()) \
-                                                     .first()
-    
-    if not latest_saved_time:
-        threshold_time = datetime.utcnow()
+
+    # Get the user's selected sorting option and handle default case
+    selected_sort_option = request.args.get('sort', 'ascendive_price')
+
+    # Determine which query to use based on the sorting option
+    if selected_sort_option == 'ascendive_price':
+        order_by_column = "price ASC"
+    elif selected_sort_option == 'descending_price':
+        order_by_column = "price DESC"
+    elif selected_sort_option == 'descendive_review_rating':
+        order_by_column = "review_rating ASC"
+    elif selected_sort_option == 'ascendive_review_count':
+        order_by_column = "review_count DESC"
+    elif selected_sort_option == 'descendive_review_count':
+        order_by_column = "review_count ASC"
+    elif selected_sort_option == 'ascendive_review_rating':
+        order_by_column = "review_rating DESC"
     else:
-        # Calculate the time threshold for the last 40 minutes from the latest saved time
-        threshold_time = latest_saved_time[0] - timedelta(minutes=5000)
+        return jsonify({"error": "Invalid sorting option"})
 
-    # Fetch the cheapest notebooks within the threshold time
-    cheapest_notebooks_subquery = From_different_sourcesReadOnly.query \
-        .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
-        .order_by(
-            From_different_sourcesReadOnly.product_name,
-            From_different_sourcesReadOnly.brand_name,
-            From_different_sourcesReadOnly.saved_time.desc()
-        ) \
-        .group_by(
-            From_different_sourcesReadOnly.product_name,
-            From_different_sourcesReadOnly.brand_name
-        ).subquery()
-
-    latest_saved_times = db.session.query(
-        From_different_sourcesReadOnly.product_name,
-        From_different_sourcesReadOnly.brand_name,
-        func.max(From_different_sourcesReadOnly.saved_time).label('latest_saved_time')
-    ).group_by(
-        From_different_sourcesReadOnly.product_name,
-        From_different_sourcesReadOnly.brand_name
-    ).subquery()
-
-    result = db.session.query(
-        From_different_sourcesReadOnly
-    ).join(
-        latest_saved_times,
-        and_(
-            From_different_sourcesReadOnly.product_name == latest_saved_times.c.product_name,
-            From_different_sourcesReadOnly.brand_name == latest_saved_times.c.brand_name,
-            From_different_sourcesReadOnly.saved_time == latest_saved_times.c.latest_saved_time
+    # Construct the final query with pagination and sorting
+    pagination_query = f"""
+        WITH from_different_sources AS (
+            SELECT
+                *,
+                ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column}) AS rn
+            FROM from_different_sources
         )
-    ).filter(
-        From_different_sourcesReadOnly.saved_time >= threshold_time
-    ).order_by(
-        From_different_sourcesReadOnly.price.asc(),
-        From_different_sourcesReadOnly.saved_time.asc()
-    ).limit(items_per_page).offset(offset).all()
+        SELECT *
+        FROM from_different_sources fds 
+        WHERE rn = 1
+        ORDER BY {order_by_column}
+        LIMIT :limit OFFSET :offset;
+    """
 
+    # Execute the selected query using SQLAlchemy's text function
+    query_results = db.session.execute(text(pagination_query), {'limit': items_per_page, 'offset': offset}).fetchall()
+
+
+    # Prepare the results for JSON response
     notebook_list = []
-    for notebook in result:
+    for notebook in query_results:
         # Create a dictionary with the required attributes for each notebook
         notebook_data = {
             "product_name": notebook.product_name,
@@ -221,3 +216,51 @@ def get_cheapest_options():
 
     # Return the list of notebooks as a JSON response
     return jsonify(notebook_list)
+
+
+@all_price_range_blueprint.route('/price-range/get', methods=['GET'])
+def get_price_range():
+    try:
+        selected_brand = request.args.get('brand')  # Get the selected brand from query parameter
+        threshold_time = datetime.utcnow() - timedelta(minutes=5000)
+
+        # Retrieve the minimum and maximum prices for the selected brand saved in the last 40 minutes
+        price_range = db.db.session.query(
+            func.min(From_different_sourcesReadOnly.price).label('min_price'),
+            func.max(From_different_sourcesReadOnly.price).label('max_price')
+        ).filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
+         .filter(func.lower(From_different_sourcesReadOnly.brand_name) == selected_brand.lower()) \
+         .first()
+
+        response_data = {
+            'minPrice': price_range.min_price if price_range.min_price else 0,
+            'maxPrice': price_range.max_price if price_range.max_price else 200000
+        }
+        response = make_response(jsonify(response_data), 200)
+
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        response_data = {'error': error_message}
+        response = make_response(jsonify(response_data), 500)
+
+    return response
+
+
+'''
+SELECT *
+FROM From_different_sourcesReadOnly AS main
+JOIN (
+    SELECT
+        product_name,
+        brand_name,
+        MAX(saved_time) AS latest_saved_time
+    FROM From_different_sourcesReadOnly
+    WHERE saved_time >= (NOW() - INTERVAL 5000 MINUTE) 
+    GROUP BY product_name, brand_name
+) AS subquery
+ON main.product_name = subquery.product_name
+   AND main.brand_name = subquery.brand_name
+   AND main.saved_time = subquery.latest_saved_time
+WHERE main.saved_time >= (NOW() - INTERVAL 5000 MINUTE) ORDER BY main.price ASC, main.saved_time ASC
+LIMIT items_per_page OFFSET offset;
+'''
