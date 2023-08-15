@@ -305,8 +305,12 @@ def get_sidebar_options():
         base_query += f" AND {selected_column_mappings['brands']} = ANY(:brands)"
         params['brands'] = brands
     if processors:
-        base_query += f" AND {selected_column_mappings['processors']} = ANY(:processors)"
-        params['processors'] = processors
+        processor_conditions = []
+        for processor in processors:
+            processor_condition = f"cpu ILIKE '%{processor}%'"
+            processor_conditions.append(processor_condition)
+        processor_condition = " OR ".join(processor_conditions)
+        base_query += f" AND ({processor_condition})"
     if rams:
         advanced_ram_conditions = []
         for ram in rams:
