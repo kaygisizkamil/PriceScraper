@@ -28,7 +28,7 @@ async def start_tasks(database_uri):
     from controller.n11_notebook_controller import n11_blueprint
     from controller.vatan_notebook_controller import vatan_blueprint
     from controller.hepsiburda_notebook_controller import hepsiburada_blueprint
-    from controller.aggregated_data_controller import all_brands_blueprint,all_processors_blueprint,all_rams_blueprint,all_screen_sizes_blueprint,all_cheapest_computers_blueprint,all_price_range_blueprint,all_sidebar_computers_blueprint
+    from controller.aggregated_data_controller import all_brands_blueprint,all_processors_blueprint,all_rams_blueprint,all_screen_sizes_blueprint,all_cheapest_computers_blueprint,all_price_range_blueprint,all_sidebar_computers_blueprint,all_matched_computers_blueprint
     from scheduler.transform_data_scheduler import   scheduler
     
 
@@ -42,7 +42,9 @@ async def start_tasks(database_uri):
     app.register_blueprint(all_screen_sizes_blueprint,url_prefix='/api/aggregated')
     app.register_blueprint(all_cheapest_computers_blueprint,url_prefix='/api/aggregated')
     app.register_blueprint(all_price_range_blueprint,url_prefix='/api/aggregated')
-    app.register_blueprint(all_sidebar_computers_blueprint,url_prefix='/api/aggregated')    #maybe we gotta make this in another base api
+    app.register_blueprint(all_sidebar_computers_blueprint,url_prefix='/api/aggregated')    #maybe we gotta make this in another base api,
+    app.register_blueprint(all_matched_computers_blueprint,url_prefix='/api/aggregated')    #maybe we gotta make this in another base api,
+    
 
     # Flask event loopunu al
   #  loop = asyncio.get_event_loop()

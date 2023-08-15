@@ -9,6 +9,8 @@ from sqlalchemy import func,or_,and_, cast,text
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import  distinct
 from sqlalchemy import select, desc, text, func,asc,column
+from sqlalchemy import text
+from fuzzywuzzy import fuzz
 
 
 
@@ -19,6 +21,7 @@ all_screen_sizes_blueprint=Blueprint('all_screens',__name__)
 all_cheapest_computers_blueprint=Blueprint('all_cheapests',__name__)
 all_price_range_blueprint = Blueprint('all_price_range', __name__)
 all_sidebar_computers_blueprint=Blueprint('/sidebar/getall',__name__)
+all_matched_computers_blueprint = Blueprint('all_matched_computers_blueprint', __name__)
 
 
 
@@ -386,3 +389,88 @@ def get_sidebar_options():
 
     # Return the list of notebooks as a JSON response
     return jsonify(notebook_list)
+
+
+@all_matched_computers_blueprint.route('/matched/getall', methods=['GET'])
+def get_matched_options():
+    # Define the number of items per page and the larger batch size
+    items_per_page = 20
+    larger_batch_size = 100  # Adjust this based on your needs
+
+    # Calculate the page number and offset
+    page = request.args.get('page', 1, type=int)
+    offset = (page - 1) * items_per_page
+
+    # Get the user's selected sorting option and handle default case
+    selected_sort_option = request.args.get('sort', 'ascendive_price')
+
+    # Determine which query to use based on the sorting option
+    if selected_sort_option == 'ascendive_price':
+        order_by_column = "price ASC"
+    elif selected_sort_option == 'descending_price':
+        order_by_column = "price DESC"
+    elif selected_sort_option == 'descendive_review_rating':
+        order_by_column = "review_rating ASC"
+    elif selected_sort_option == 'ascendive_review_count':
+        order_by_column = "review_count DESC"
+    elif selected_sort_option == 'descendive_review_count':
+        order_by_column = "review_count ASC"
+    elif selected_sort_option == 'ascendive_review_rating':
+        order_by_column = "review_rating DESC"
+    else:
+        return jsonify({"error": "Invalid sorting option"})
+
+    # Get the user's search query
+    user_query = request.args.get('query', '')
+
+    # Construct the base query with larger batch size, pagination, and sorting
+    base_query = f"""
+        WITH ranked AS (
+            SELECT
+                *,
+                ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column}) AS rn
+            FROM from_different_sources
+            WHERE LOWER(product_name) LIKE LOWER(:query)
+        )
+        SELECT *
+        FROM ranked
+        WHERE rn = 1
+        ORDER BY {order_by_column}
+        LIMIT {larger_batch_size};
+    """
+
+    # Execute the base query using SQLAlchemy's text function
+    query_results = db.session.execute(text(base_query), {'query': f'%{user_query}%'}).fetchall()
+
+    # Prepare the results for fuzzy search
+    data_for_fuzzy_search = []
+    for notebook in query_results:
+        data_for_fuzzy_search.append({
+            "product_name": notebook.product_name,
+            "brand_name": notebook.brand_name,
+            "price": notebook.price,
+            "review_rating": notebook.review_rating,
+            "review_count": notebook.review_count,
+            "product_link": notebook.product_link,
+            "image_link": notebook.image_link,
+            "fromWhere": notebook.fromWhere,
+            "cpu": notebook.cpu,
+            "ram": notebook.ram,
+            "screen": notebook.screen,
+            "gpu": notebook.gpu,
+            "os": notebook.os,
+            "ssd": notebook.ssd,
+            "hdd": notebook.hdd,
+            "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
+        })
+
+    # Perform fuzzy search and filtering
+    matching_results = []
+    for item in data_for_fuzzy_search:
+        match_ratio = fuzz.partial_ratio(user_query.lower(), item['product_name'].lower())  # Compare input with the product name
+        if match_ratio > 70:  # Adjust the threshold as needed
+            matching_results.append(item)
+
+    # Return the paginated fuzzy search results as a JSON response
+    paginated_results = matching_results[offset:offset + items_per_page]
+    return jsonify(paginated_results)

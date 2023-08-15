@@ -11,7 +11,6 @@ def hepsiburada_get_all_notebooks():
     # Get the requested page number from the query parameters (default to 1 if not provided)
     page = request.args.get('page', 1, type=int)
     
-    # Number of items per page (adjust this value based on your requirements)
     items_per_page = 100
 
     # Calculate the offset to fetch the data for the requested page
