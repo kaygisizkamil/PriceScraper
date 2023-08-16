@@ -45,7 +45,6 @@ async def get_product_data_infos(session, page_number):
                     # Replace {size} in image links with the specified size
                     image_links = [link.replace("{size}", str(200)) for link in image_links]
 
-                    # Extract prices
                     # Extract prices 
                     price_strings = re.findall(r'"price":(\d+(?:\.\d+)?)', script_text)  
 
@@ -89,7 +88,8 @@ async def get_product_data_infos(session, page_number):
         for i, (product, image_link, price, rating, count, decoded_url) in enumerate(zip(product_data, image_links, prices, review_ratings, review_counts, decoded_urls)):
             _, brand, name = product
             name = name.rstrip('\\')
-
+            name=name.lower()
+            brand=brand.lower()
             if(len(decoded_url)>255):continue
 
             product_data_lists.append({
@@ -111,5 +111,3 @@ async def get_product_data_infos(session, page_number):
 async def get_product_data(page_number):
     async with aiohttp.ClientSession() as session:
         return await get_product_data_infos(session, page_number)
-
-

@@ -9,8 +9,8 @@ class N11Data(db.Model):
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
     price = db.Column(db.Integer)  # Use a numeric data type for the price (assuming it contains decimal values)
-    review_rating = db.Column(db.Float)  # Use a numeric data type for the review rating
-    review_count = db.Column(db.Integer)  # Use an integer data type for the review count
+    review_rating = db.Column(db.Float,default=0.0)
+    review_count = db.Column(db.Integer,default=0)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="n11")
@@ -33,8 +33,8 @@ class N11DataReadOnly(db.Model):
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
     price = db.Column(db.Integer)  # Use a numeric data type for the price (assuming it contains decimal values)
-    review_rating = db.Column(db.Float)  # Use a numeric data type for the review rating
-    review_count = db.Column(db.Integer)  # Use an integer data type for the review count
+    review_rating = db.Column(db.Float)
+    review_count = db.Column(db.Integer)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="n11")

@@ -62,7 +62,9 @@ async def fetch_product_data(session, page_number):
                 # Extract product data
                 product_name_element = product_element.select_one("div.product-list__product-name h3")
                 product_name = product_name_element.text.strip()
+                product_name=product_name.lower()
                 brand_name = product_name.split()[0]
+                brand_name=brand_name.lower()
 
                 # Extract product link and then get the product ID from the link
                 product_link_element = product_element.select_one("a.product-list__link")

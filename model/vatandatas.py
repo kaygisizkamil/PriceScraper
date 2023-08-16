@@ -10,7 +10,7 @@ class VatanData(db.Model):
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
     price = db.Column(db.Integer)
-    review_rating = db.Column(db.Float)  # Updated to a float field
+    review_rating = db.Column(db.Float)
     review_count = db.Column(db.Integer)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
@@ -34,8 +34,8 @@ class VatanDataReadOnly(db.Model):
     product_name = db.Column(db.String(255))
     brand_name = db.Column(db.String(50))
     price = db.Column(db.Integer)
-    review_rating = db.Column(db.Float)  # Updated to a float field
-    review_count = db.Column(db.Integer)
+    review_rating = db.Column(db.Float,default=0.0)
+    review_count = db.Column(db.Integer,default=0)
     product_link = db.Column(db.String(255))
     image_link = db.Column(db.String(255))
     fromWhere = db.Column(db.String(50), default="vatan")  # Add the new column with the default value "vatan"

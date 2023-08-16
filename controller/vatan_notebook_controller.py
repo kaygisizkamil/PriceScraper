@@ -13,7 +13,7 @@ def vatan_get_all_notebooks():
     # Get the requested page number from the query parameters (default to 1 if not provided)
     page = request.args.get('page', 1, type=int)
     
-    items_per_page = 50 #wwas 100 
+    items_per_page = 10 #wwas 100 
 
     # Calculate the offset to fetch the data for the requested page
     offset = (page - 1) * items_per_page

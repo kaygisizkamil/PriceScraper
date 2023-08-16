@@ -63,7 +63,7 @@ def get_processor_options():
             # Retrieve distinct processor options for the selected brands saved in the last 40 minutes
             processor_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.cpu).label('processor')) \
                                 .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
-                                .filter(func.lower(From_different_sourcesReadOnly.brand_name).in_([brand.lower() for brand in selected_brands])) \
+                                .filter(From_different_sourcesReadOnly.brand_name.in_(selected_brands)) \
                                 .filter(or_(*[text("lower(from_different_sources.cpu) SIMILAR TO '%(" + keyword + ")%'") for keyword in keyword_list])) \
                                 .distinct() \
                                 .all()
@@ -73,7 +73,7 @@ def get_processor_options():
             # Process the processor options to include only 'intel', 'amd', 'm1', 'm2'
             for option in processor_options:
                 for keyword in keyword_list:
-                    if keyword in option[0].lower():
+                    if keyword in option[0]:
                         valid_processors.add(keyword)
                         break
             
@@ -87,8 +87,8 @@ def get_processor_options():
         error_message = f"An error occurred: {str(e)}"
         response_data = {'error': error_message}
         response = make_response(jsonify(response_data), 500)
-
     return response
+
 @all_rams_blueprint.route('/ram-options/getall', methods=['GET'])
 def get_ram_options():
     try:
@@ -100,7 +100,7 @@ def get_ram_options():
             # Retrieve distinct RAM options for the selected brands saved in the last 40 minutes
             ram_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.ram).label('ram')) \
                 .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
-                .filter(func.lower(From_different_sourcesReadOnly.brand_name).in_([brand.lower() for brand in selected_brands])) \
+                .filter(From_different_sourcesReadOnly.brand_name.in_(selected_brands)) \
                 .distinct() \
                 .all()
 
@@ -118,6 +118,7 @@ def get_ram_options():
         response = make_response(jsonify(response_data), 500)
     print(response)
     return response
+
 @all_screen_sizes_blueprint.route('/screen-size-options/getall', methods=['GET'])
 def get_screen_size_options():
     try:
@@ -129,7 +130,7 @@ def get_screen_size_options():
             # Retrieve distinct screen sizes for the selected brands saved in the last 40 minutes
             screen_size_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.screen).label('screen')) \
                 .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \
-                .filter(func.lower(From_different_sourcesReadOnly.brand_name).in_([brand.lower() for brand in selected_brands])) \
+                .filter(From_different_sourcesReadOnly.brand_name.in_(selected_brands)) \
                 .distinct() \
                 .all()
 
@@ -148,6 +149,7 @@ def get_screen_size_options():
     
     print(response)
     return response
+
 #it was real challenging to do it using orm so i used raw sql
 @all_cheapest_computers_blueprint.route('/cheapest/getall', methods=['GET'])
 def get_cheapest_options():
@@ -182,13 +184,13 @@ def get_cheapest_options():
         WITH ranked AS (
             SELECT
                 *,
-                ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column}) AS rn
+                ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column},saved_time DESC) AS rn
             FROM from_different_sources
         )
         SELECT *
         FROM ranked fds 
         WHERE rn = 1
-        ORDER BY {order_by_column}
+        ORDER BY {order_by_column},saved_time DESC
         LIMIT :limit OFFSET :offset;
     """
 
@@ -324,14 +326,12 @@ def get_sidebar_options():
         ram_condition = " OR ".join(advanced_ram_conditions)
         base_query += f" AND ({ram_condition})"
     if screen_sizes:
-        advanced_screen_conditions = []
+        screen_size_conditions = []
         for screen_size in screen_sizes:
-            # Remove the "+" sign and convert to lowercase before querying
-            screen_size = screen_size.replace('+', '').lower()
-            screen_condition = f"screen ILIKE '%{screen_size}%'"
-            advanced_screen_conditions.append(screen_condition)
-        screen_condition = " OR ".join(advanced_screen_conditions)
-        base_query += f" AND ({screen_condition})"
+            screen_size_condition = f"screen = '{screen_size}'"
+            screen_size_conditions.append(screen_size_condition)
+        screen_size_condition = " OR ".join(screen_size_conditions)
+        base_query += f" AND ({screen_size_condition})"
     if price_interval:
         base_query += " AND price BETWEEN :min_price AND :max_price"
         params['min_price'] = price_interval[0]
