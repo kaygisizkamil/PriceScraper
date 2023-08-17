@@ -283,7 +283,6 @@ def get_sidebar_options():
         'rams': 'ram',
         'screenSizes': 'screen',
         'priceInterval': 'price'
-        # Add other mappings as needed
     }
 
     base_query = """
@@ -395,7 +394,7 @@ def get_sidebar_options():
 def get_matched_options():
     # Define the number of items per page and the larger batch size
     items_per_page = 20
-    larger_batch_size = 100  # Adjust this based on your needs
+    larger_batch_size = 100  
 
     # Calculate the page number and offset
     page = request.args.get('page', 1, type=int)
@@ -404,7 +403,6 @@ def get_matched_options():
     # Get the user's selected sorting option and handle default case
     selected_sort_option = request.args.get('sort', 'ascendive_price')
 
-    # Determine which query to use based on the sorting option
     if selected_sort_option == 'ascendive_price':
         order_by_column = "price ASC"
     elif selected_sort_option == 'descending_price':
@@ -468,7 +466,7 @@ def get_matched_options():
     matching_results = []
     for item in data_for_fuzzy_search:
         match_ratio = fuzz.partial_ratio(user_query.lower(), item['product_name'].lower())  # Compare input with the product name
-        if match_ratio > 70:  # Adjust the threshold as needed
+        if match_ratio > 70: 
             matching_results.append(item)
 
     # Return the paginated fuzzy search results as a JSON response

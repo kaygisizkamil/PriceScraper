@@ -35,7 +35,7 @@ async def process_data(all_results, database_uri, db, app):
 
         
         print(f"Data fetch completed in {time.time() - start} seconds")
-        print(all_results)
+        #print(all_results)
 
         notebook_data_list = []
         for specs in all_results:
@@ -123,12 +123,12 @@ async def scheduler(app, db, database_uri):
                 if all_results:
                     await process_data(all_results, database_uri, db, app)
 
-                if vatan_has_data:
-                    vatan_page += 1
-                if hepsiburda_has_data:
-                    hepsiburda_page += 1
-                if n11_has_data:
-                    n11_page += 1
+            if vatan_has_data:
+                vatan_page += 1
+            if hepsiburda_has_data:
+                hepsiburda_page += 1
+            if n11_has_data:
+                n11_page += 1
 
             print(f"Data fetch completed in {time.time() - start} seconds")
             print("Number of requests made by each service:")

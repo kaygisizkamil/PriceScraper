@@ -14,7 +14,7 @@ async def schedule_task_for_hepsiburada(app, db, database_uri):
         with app.app_context():  # Set up the Flask application context within the background thread
             try:
                 print("Hepsiburada Notebook Scheduler started.")
-                for page_number in range(1, 200):
+                for page_number in range(1, 50):
                     product_data = await get_product_data(page_number)  # Await the async function here
                     #print(product_data)
                     if not product_data:
@@ -24,7 +24,7 @@ async def schedule_task_for_hepsiburada(app, db, database_uri):
                     # Save the product data to the database
                     async with data_extraction_lock:
                         session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=db.create_engine(database_uri)))
-                        print(product_data)
+                        #print(product_data)
                         for single_product in product_data:
                             product_data_entry = HepsiburadaData(
                                 product_name=single_product['product_name'],

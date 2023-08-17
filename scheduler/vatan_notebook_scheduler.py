@@ -14,10 +14,10 @@ from dateutil import parser
 initial_data_extraction_complete = False
 data_extraction_lock = asyncio.Lock()
 async def schedule_task_for_vatan(app, db,database_uri):
-    global initial_data_extraction_complete
+    #global initial_data_extraction_complete
 
     while True:  # Run the loop indefinitely for periodic scheduling
-        with app.app_context():  # Set up the Flask application context within the background thread
+        with app.app_context():  
             try:
                 print("Notebook Scheduler started.")
                 for page_number in range(1, 15):

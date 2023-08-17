@@ -8,10 +8,9 @@ hepsiburada_blueprint = Blueprint('hepsiburada', __name__)
 # http://localhost:5000/api/hepsiburda/notebooks/getall?page=5
 @hepsiburada_blueprint.route('/notebooks/getall', methods=['GET'])
 def hepsiburada_get_all_notebooks():
-    # Get the requested page number from the query parameters (default to 1 if not provided)
     page = request.args.get('page', 1, type=int)
     
-    items_per_page = 10
+    items_per_page = 20
 
     # Calculate the offset to fetch the data for the requested page
     offset = (page - 1) * items_per_page
@@ -29,7 +28,6 @@ def hepsiburada_get_all_notebooks():
         threshold_time = latest_saved_time[0] - timedelta(minutes=100)
 
     # Fetch data from the read-only table (HepsiburadaDataReadOnly) using pagination and filtering by saved_time
-    # Fetch data from the read-only table (HepsiburadaDataReadOnly) using pagination and filtering by saved_time
     all_notebooks = HepsiburadaDataReadOnly.query.filter(HepsiburadaDataReadOnly.saved_time >= threshold_time) \
                                                  .order_by(HepsiburadaDataReadOnly.saved_time.asc()) \
                                                  .offset(offset) \
@@ -37,12 +35,9 @@ def hepsiburada_get_all_notebooks():
                                                  .distinct() \
                                                  .all()
 
-                                                 
-   # print(f"Number of elements returned: {len(all_notebooks)}")
-
+                                                
     notebook_list = []
     for notebook in all_notebooks:
-        # Create a dictionary with the required attributes for each notebook
         notebook_data = {
             "product_name": notebook.product_name,
             "brand_name": notebook.brand_name,

@@ -10,8 +10,6 @@ import requests
 
 async def fetch_and_parse_product_data_vatan(session, data):
     results = []
-  #  concurrency_limit = 10  
-   # semaphore = asyncio.Semaphore(concurrency_limit)
     async def process_data_for_single_product_vatan(data_tmp):
             try:
                 #url = "https://www.vatanbilgisayar.com/dell-vostro-14-3400-11-nesil-core-i5-1135g7-8gb-256gb-1tb-15-6inc-mx330-2gb-w11.html"
@@ -32,7 +30,6 @@ async def fetch_and_parse_product_data_vatan(session, data):
                         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
                     }
                 
-                    #async with aiohttp.ClientSession() as session:
                     specs = {
                         'price':None,
                         'brand_name':None,
@@ -101,8 +98,7 @@ async def fetch_and_parse_product_data_vatan(session, data):
                                                 # Replace comma with dot as the decimal separator
                                                 screen_value = screen_value.replace(',', '.')
                                                 specs['screen'] = screen_value
-                                            else :
-                                                specs['screen']=screen_text
+                                            
 
                         # GPU
                         gpu_item = next((item for item in property_tab_items if 'Ekran kartı' in item.text), None)
@@ -316,7 +312,7 @@ async def fetch_and_parse_product_data_hb(session, data):
                                   
                                     # Construct the 'cpu' property if at least one component is present
                                     if cpu_nesli or cpu_tipi or cpu_islemci:
-                                        cpu_components = [comp for comp in (cpu_nesli, cpu_tipi, cpu_islemci) if comp]
+                                        cpu_components = [comp for comp in (cpu_islemci,cpu_tipi,cpu_nesli ) if comp]
                                         specs['cpu'] = ' '.join(cpu_components)
                                     link_tag = soup.find('link', rel='preload', imagesrcset=True)
                                     
