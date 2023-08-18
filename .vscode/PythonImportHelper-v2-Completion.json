@@ -1,0 +1,1459 @@
+[
+    {
+        "label": "flask",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "flask",
+        "description": "flask",
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "make_response",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Blueprint",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "From_different_sourcesReadOnly",
+        "importPath": "model.data_from_different_sources",
+        "description": "model.data_from_different_sources",
+        "isExtraImport": true,
+        "detail": "model.data_from_different_sources",
+        "documentation": {}
+    },
+    {
+        "label": "From_different_sources",
+        "importPath": "model.data_from_different_sources",
+        "description": "model.data_from_different_sources",
+        "isExtraImport": true,
+        "detail": "model.data_from_different_sources",
+        "documentation": {}
+    },
+    {
+        "label": "From_different_sources",
+        "importPath": "model.data_from_different_sources",
+        "description": "model.data_from_different_sources",
+        "isExtraImport": true,
+        "detail": "model.data_from_different_sources",
+        "documentation": {}
+    },
+    {
+        "label": "From_different_sources",
+        "importPath": "model.data_from_different_sources",
+        "description": "model.data_from_different_sources",
+        "isExtraImport": true,
+        "detail": "model.data_from_different_sources",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "or_",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "and_",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "cast",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "distinct",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "desc",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "asc",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "UniqueConstraint",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "isExtraImport": true,
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "ARRAY",
+        "importPath": "sqlalchemy.dialects.postgresql",
+        "description": "sqlalchemy.dialects.postgresql",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.dialects.postgresql",
+        "documentation": {}
+    },
+    {
+        "label": "fuzz",
+        "importPath": "fuzzywuzzy",
+        "description": "fuzzywuzzy",
+        "isExtraImport": true,
+        "detail": "fuzzywuzzy",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaDataReadOnly",
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "isExtraImport": true,
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaData",
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "isExtraImport": true,
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaData",
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "isExtraImport": true,
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaData",
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "isExtraImport": true,
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaData",
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "isExtraImport": true,
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "N11DataReadOnly",
+        "importPath": "model.n11_datas",
+        "description": "model.n11_datas",
+        "isExtraImport": true,
+        "detail": "model.n11_datas",
+        "documentation": {}
+    },
+    {
+        "label": "N11Data",
+        "importPath": "model.n11_datas",
+        "description": "model.n11_datas",
+        "isExtraImport": true,
+        "detail": "model.n11_datas",
+        "documentation": {}
+    },
+    {
+        "label": "N11Data",
+        "importPath": "model.n11_datas",
+        "description": "model.n11_datas",
+        "isExtraImport": true,
+        "detail": "model.n11_datas",
+        "documentation": {}
+    },
+    {
+        "label": "VatanDataReadOnly",
+        "importPath": "model.vatandatas",
+        "description": "model.vatandatas",
+        "isExtraImport": true,
+        "detail": "model.vatandatas",
+        "documentation": {}
+    },
+    {
+        "label": "VatanData",
+        "importPath": "model.vatandatas",
+        "description": "model.vatandatas",
+        "isExtraImport": true,
+        "detail": "model.vatandatas",
+        "documentation": {}
+    },
+    {
+        "label": "VatanData",
+        "importPath": "model.vatandatas",
+        "description": "model.vatandatas",
+        "isExtraImport": true,
+        "detail": "model.vatandatas",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "SQLAlchemy",
+        "importPath": "flask_sqlalchemy",
+        "description": "flask_sqlalchemy",
+        "isExtraImport": true,
+        "detail": "flask_sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "scoped_session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "scoped_session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "scoped_session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "scoped_session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "scoped_session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "scoped_session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "get_product_data",
+        "importPath": "service.hepsiburda_notebook_service",
+        "description": "service.hepsiburda_notebook_service",
+        "isExtraImport": true,
+        "detail": "service.hepsiburda_notebook_service",
+        "documentation": {}
+    },
+    {
+        "label": "get_product_data",
+        "importPath": "service.n11_notebook_service",
+        "description": "service.n11_notebook_service",
+        "isExtraImport": true,
+        "detail": "service.n11_notebook_service",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_and_parse_product_data_hb",
+        "importPath": "service.transform_data_service",
+        "description": "service.transform_data_service",
+        "isExtraImport": true,
+        "detail": "service.transform_data_service",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_data_from_hb_source",
+        "importPath": "service.transform_data_service",
+        "description": "service.transform_data_service",
+        "isExtraImport": true,
+        "detail": "service.transform_data_service",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_and_parse_product_data_vatan",
+        "importPath": "service.transform_data_service",
+        "description": "service.transform_data_service",
+        "isExtraImport": true,
+        "detail": "service.transform_data_service",
+        "documentation": {}
+    },
+    {
+        "label": "aiohttp",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "aiohttp",
+        "description": "aiohttp",
+        "detail": "aiohttp",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "aiopg",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "aiopg",
+        "description": "aiopg",
+        "detail": "aiopg",
+        "documentation": {}
+    },
+    {
+        "label": "asyncpg",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncpg",
+        "description": "asyncpg",
+        "detail": "asyncpg",
+        "documentation": {}
+    },
+    {
+        "label": "parser",
+        "importPath": "dateutil",
+        "description": "dateutil",
+        "isExtraImport": true,
+        "detail": "dateutil",
+        "documentation": {}
+    },
+    {
+        "label": "parser",
+        "importPath": "dateutil",
+        "description": "dateutil",
+        "isExtraImport": true,
+        "detail": "dateutil",
+        "documentation": {}
+    },
+    {
+        "label": "parser",
+        "importPath": "dateutil",
+        "description": "dateutil",
+        "isExtraImport": true,
+        "detail": "dateutil",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_data_from_vatan_source",
+        "importPath": "service. transform_data_service",
+        "description": "service. transform_data_service",
+        "isExtraImport": true,
+        "detail": "service. transform_data_service",
+        "documentation": {}
+    },
+    {
+        "label": "aiocron",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "aiocron",
+        "description": "aiocron",
+        "detail": "aiocron",
+        "documentation": {}
+    },
+    {
+        "label": "get_product_data",
+        "importPath": "service.vatan_notebook_service",
+        "description": "service.vatan_notebook_service",
+        "isExtraImport": true,
+        "detail": "service.vatan_notebook_service",
+        "documentation": {}
+    },
+    {
+        "label": "device_name_utils",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "device_name_utils",
+        "description": "device_name_utils",
+        "detail": "device_name_utils",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "BeautifulSoup",
+        "importPath": "bs4",
+        "description": "bs4",
+        "isExtraImport": true,
+        "detail": "bs4",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "urllib.parse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "Decimal",
+        "importPath": "decimal",
+        "description": "decimal",
+        "isExtraImport": true,
+        "detail": "decimal",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "CORS",
+        "importPath": "flask_cors",
+        "description": "flask_cors",
+        "isExtraImport": true,
+        "detail": "flask_cors",
+        "documentation": {}
+    },
+    {
+        "label": "get_distinct_checkbox_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_distinct_checkbox_options():\n    try:\n        # Calculate the threshold time for the last 40 minutes\n        threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n        # Retrieve distinct checkbox options saved in the last 40 minutes\n        distinct_brands = db.db.session.query(From_different_sourcesReadOnly.brand_name.distinct()) \\\n            .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \\\n            .all()\n        distinct_brands = [brand[0] for brand in distinct_brands]\n        # Create a response object with JSON data",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_processor_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_processor_options():\n    try:\n        selected_brands = request.args.getlist('brand')  # Get the list of selected brands from query parameters\n        if selected_brands:\n            threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n            keyword_list = ['intel', 'amd', 'm1', 'm2']\n            # Retrieve distinct processor options for the selected brands saved in the last 40 minutes\n            processor_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.cpu).label('processor')) \\\n                                .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \\\n                                .filter(From_different_sourcesReadOnly.brand_name.in_(selected_brands)) \\",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_ram_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_ram_options():\n    try:\n        selected_brands = request.args.getlist('brand')  # Get the list of selected brands from query parameters\n        if selected_brands:\n            threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n            # Retrieve distinct RAM options for the selected brands saved in the last 40 minutes\n            ram_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.ram).label('ram')) \\\n                .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \\\n                .filter(From_different_sourcesReadOnly.brand_name.in_(selected_brands)) \\\n                .distinct() \\",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_screen_size_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_screen_size_options():\n    try:\n        selected_brands = request.args.getlist('brand')  # Get the list of selected brands from query parameters\n        if selected_brands:\n            threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n            # Retrieve distinct screen sizes for the selected brands saved in the last 40 minutes\n            screen_size_options = db.db.session.query(func.trim(From_different_sourcesReadOnly.screen).label('screen')) \\\n                .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \\\n                .filter(From_different_sourcesReadOnly.brand_name.in_(selected_brands)) \\\n                .distinct() \\",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_cheapest_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_cheapest_options():\n    # Define the number of items per page\n    items_per_page = 20\n    # Calculate the page number and offset\n    page = request.args.get('page', 1, type=int)\n    offset = (page - 1) * items_per_page\n    # Get the user's selected sorting option and handle default case\n    selected_sort_option = request.args.get('sort', 'ascendive_price')\n    # Determine which query to use based on the sorting option\n    if selected_sort_option == 'ascendive_price':",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_price_range",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_price_range():\n    try:\n        selected_brand = request.args.get('brand')  # Get the selected brand from query parameter\n        threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n        # Retrieve the minimum and maximum prices for the selected brand saved in the last 40 minutes\n        price_range = db.db.session.query(\n            func.min(From_different_sourcesReadOnly.price).label('min_price'),\n            func.max(From_different_sourcesReadOnly.price).label('max_price')\n        ).filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \\\n         .filter(func.lower(From_different_sourcesReadOnly.brand_name) == selected_brand.lower()) \\",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_sidebar_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_sidebar_options():\n    # Get selected values from query parameters\n    selected_values = request.args.get('selectedValues', '{}')\n    selected_values = json.loads(selected_values)\n    selected_column_mappings = {\n        'brands': 'brand_name',\n        'processors': 'cpu',\n        'rams': 'ram',\n        'screenSizes': 'screen',\n        'priceInterval': 'price'",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "get_matched_options",
+        "kind": 2,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "def get_matched_options():\n    # Define the number of items per page and the larger batch size\n    items_per_page = 20\n    larger_batch_size = 100  \n    # Calculate the page number and offset\n    page = request.args.get('page', 1, type=int)\n    offset = (page - 1) * items_per_page\n    # Get the user's selected sorting option and handle default case\n    selected_sort_option = request.args.get('sort', 'ascendive_price')\n    if selected_sort_option == 'ascendive_price':",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "all_brands_blueprint",
+        "kind": 5,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "all_brands_blueprint = Blueprint('unique_brands', __name__)\nall_processors_blueprint = Blueprint('all_processors', __name__)\nall_rams_blueprint=Blueprint('all_rams', __name__)\nall_screen_sizes_blueprint=Blueprint('all_screens',__name__)\nall_cheapest_computers_blueprint=Blueprint('all_cheapests',__name__)\nall_price_range_blueprint = Blueprint('all_price_range', __name__)\nall_sidebar_computers_blueprint=Blueprint('/sidebar/getall',__name__)\nall_matched_computers_blueprint = Blueprint('all_matched_computers_blueprint', __name__)\n@all_brands_blueprint.route('/checkbox-options/getall', methods=['GET'])\ndef get_distinct_checkbox_options():",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "all_processors_blueprint",
+        "kind": 5,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "all_processors_blueprint = Blueprint('all_processors', __name__)\nall_rams_blueprint=Blueprint('all_rams', __name__)\nall_screen_sizes_blueprint=Blueprint('all_screens',__name__)\nall_cheapest_computers_blueprint=Blueprint('all_cheapests',__name__)\nall_price_range_blueprint = Blueprint('all_price_range', __name__)\nall_sidebar_computers_blueprint=Blueprint('/sidebar/getall',__name__)\nall_matched_computers_blueprint = Blueprint('all_matched_computers_blueprint', __name__)\n@all_brands_blueprint.route('/checkbox-options/getall', methods=['GET'])\ndef get_distinct_checkbox_options():\n    try:",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "all_price_range_blueprint",
+        "kind": 5,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "all_price_range_blueprint = Blueprint('all_price_range', __name__)\nall_sidebar_computers_blueprint=Blueprint('/sidebar/getall',__name__)\nall_matched_computers_blueprint = Blueprint('all_matched_computers_blueprint', __name__)\n@all_brands_blueprint.route('/checkbox-options/getall', methods=['GET'])\ndef get_distinct_checkbox_options():\n    try:\n        # Calculate the threshold time for the last 40 minutes\n        threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n        # Retrieve distinct checkbox options saved in the last 40 minutes\n        distinct_brands = db.db.session.query(From_different_sourcesReadOnly.brand_name.distinct()) \\",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "all_matched_computers_blueprint",
+        "kind": 5,
+        "importPath": "controller.aggregated_data_controller",
+        "description": "controller.aggregated_data_controller",
+        "peekOfCode": "all_matched_computers_blueprint = Blueprint('all_matched_computers_blueprint', __name__)\n@all_brands_blueprint.route('/checkbox-options/getall', methods=['GET'])\ndef get_distinct_checkbox_options():\n    try:\n        # Calculate the threshold time for the last 40 minutes\n        threshold_time = datetime.utcnow() - timedelta(minutes=5000)\n        # Retrieve distinct checkbox options saved in the last 40 minutes\n        distinct_brands = db.db.session.query(From_different_sourcesReadOnly.brand_name.distinct()) \\\n            .filter(From_different_sourcesReadOnly.saved_time >= threshold_time) \\\n            .all()",
+        "detail": "controller.aggregated_data_controller",
+        "documentation": {}
+    },
+    {
+        "label": "hepsiburada_get_all_notebooks",
+        "kind": 2,
+        "importPath": "controller.hepsiburda_notebook_controller",
+        "description": "controller.hepsiburda_notebook_controller",
+        "peekOfCode": "def hepsiburada_get_all_notebooks():\n    page = request.args.get('page', 1, type=int)\n    items_per_page = 20\n    # Calculate the offset to fetch the data for the requested page\n    offset = (page - 1) * items_per_page\n    # Get the latest saved time from the database\n    latest_saved_time = HepsiburadaDataReadOnly.query.with_entities(HepsiburadaDataReadOnly.saved_time) \\\n                                                     .order_by(HepsiburadaDataReadOnly.saved_time.desc()) \\\n                                                     .first()\n    # If there is no data in the database, set the threshold time to the current time",
+        "detail": "controller.hepsiburda_notebook_controller",
+        "documentation": {}
+    },
+    {
+        "label": "hepsiburada_blueprint",
+        "kind": 5,
+        "importPath": "controller.hepsiburda_notebook_controller",
+        "description": "controller.hepsiburda_notebook_controller",
+        "peekOfCode": "hepsiburada_blueprint = Blueprint('hepsiburada', __name__)\n# http://localhost:5000/api/hepsiburda/notebooks/getall?page=5\n@hepsiburada_blueprint.route('/notebooks/getall', methods=['GET'])\ndef hepsiburada_get_all_notebooks():\n    page = request.args.get('page', 1, type=int)\n    items_per_page = 20\n    # Calculate the offset to fetch the data for the requested page\n    offset = (page - 1) * items_per_page\n    # Get the latest saved time from the database\n    latest_saved_time = HepsiburadaDataReadOnly.query.with_entities(HepsiburadaDataReadOnly.saved_time) \\",
+        "detail": "controller.hepsiburda_notebook_controller",
+        "documentation": {}
+    },
+    {
+        "label": "hepsiburada_get_all_notebooks",
+        "kind": 2,
+        "importPath": "controller.n11_notebook_controller",
+        "description": "controller.n11_notebook_controller",
+        "peekOfCode": "def hepsiburada_get_all_notebooks():\n    # Get the requested page number from the query parameters (default to 1 if not provided)\n    page = request.args.get('page', 1, type=int)\n    items_per_page = 100\n    # Calculate the offset to fetch the data for the requested page\n    offset = (page - 1) * items_per_page\n    # Get the latest saved time from the database\n    latest_saved_time = N11DataReadOnly.query.with_entities(N11DataReadOnly.saved_time) \\\n                                                     .order_by(N11DataReadOnly.saved_time.desc()) \\\n                                                     .first()",
+        "detail": "controller.n11_notebook_controller",
+        "documentation": {}
+    },
+    {
+        "label": "n11_blueprint",
+        "kind": 5,
+        "importPath": "controller.n11_notebook_controller",
+        "description": "controller.n11_notebook_controller",
+        "peekOfCode": "n11_blueprint = Blueprint('n11', __name__)\n# http://localhost:5000/api/hepsiburda/notebooks/getall?page=5\n@n11_blueprint.route('/notebooks/getall', methods=['GET'])\ndef hepsiburada_get_all_notebooks():\n    # Get the requested page number from the query parameters (default to 1 if not provided)\n    page = request.args.get('page', 1, type=int)\n    items_per_page = 100\n    # Calculate the offset to fetch the data for the requested page\n    offset = (page - 1) * items_per_page\n    # Get the latest saved time from the database",
+        "detail": "controller.n11_notebook_controller",
+        "documentation": {}
+    },
+    {
+        "label": "vatan_get_all_notebooks",
+        "kind": 2,
+        "importPath": "controller.vatan_notebook_controller",
+        "description": "controller.vatan_notebook_controller",
+        "peekOfCode": "def vatan_get_all_notebooks():\n    # Get the requested page number from the query parameters (default to 1 if not provided)\n    page = request.args.get('page', 1, type=int)\n    items_per_page = 20 \n    # Calculate the offset to fetch the data for the requested page\n    offset = (page - 1) * items_per_page\n    # Get the latest saved time from the database\n    latest_saved_time = VatanDataReadOnly.query.with_entities(VatanDataReadOnly.saved_time) \\\n                                                     .order_by(VatanDataReadOnly.saved_time.desc()) \\\n                                                     .first()",
+        "detail": "controller.vatan_notebook_controller",
+        "documentation": {}
+    },
+    {
+        "label": "vatan_blueprint",
+        "kind": 5,
+        "importPath": "controller.vatan_notebook_controller",
+        "description": "controller.vatan_notebook_controller",
+        "peekOfCode": "vatan_blueprint = Blueprint('vatan', __name__)\n# http://localhost:5000/api/hepsiburda/notebooks/getall?page=5\n@vatan_blueprint.route('/notebooks/getall', methods=['GET'])\ndef vatan_get_all_notebooks():\n    # Get the requested page number from the query parameters (default to 1 if not provided)\n    page = request.args.get('page', 1, type=int)\n    items_per_page = 20 \n    # Calculate the offset to fetch the data for the requested page\n    offset = (page - 1) * items_per_page\n    # Get the latest saved time from the database",
+        "detail": "controller.vatan_notebook_controller",
+        "documentation": {}
+    },
+    {
+        "label": "From_different_sources",
+        "kind": 6,
+        "importPath": "model.data_from_different_sources",
+        "description": "model.data_from_different_sources",
+        "peekOfCode": "class From_different_sources(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    price = db.Column(db.Integer)\n    brand_name = db.Column(db.String(50))\n    review_rating = db.Column(db.Float)\n    review_count = db.Column(db.Integer)\n    saved_time = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc).replace(second=0, microsecond=0))\n    product_link = db.Column(db.String(255))\n    image_link = db.Column(db.String(255))",
+        "detail": "model.data_from_different_sources",
+        "documentation": {}
+    },
+    {
+        "label": "From_different_sourcesReadOnly",
+        "kind": 6,
+        "importPath": "model.data_from_different_sources",
+        "description": "model.data_from_different_sources",
+        "peekOfCode": "class From_different_sourcesReadOnly(db.Model):\n    __tablename__ = 'from_different_sources'\n    __table_args__ = {'extend_existing': True}  # to extend the existing table\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    price = db.Column(db.Integer)\n    brand_name = db.Column(db.String(50))\n    review_rating = db.Column(db.Float)\n    review_count = db.Column(db.Integer)\n    saved_time = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc).replace(second=0, microsecond=0))",
+        "detail": "model.data_from_different_sources",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "model.dbmodel",
+        "description": "model.dbmodel",
+        "peekOfCode": "db = SQLAlchemy()",
+        "detail": "model.dbmodel",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaData",
+        "kind": 6,
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "peekOfCode": "class HepsiburadaData(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    brand_name = db.Column(db.String(50))\n    price = db.Column(db.Integer)\n    review_rating = db.Column(db.Float,default=0.0)\n    review_count = db.Column(db.Integer,default=0)\n    product_link = db.Column(db.String(255))\n    image_link = db.Column(db.String(255))\n    fromWhere = db.Column(db.String(50), default=\"hepsiburada\")  ",
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "HepsiburadaDataReadOnly",
+        "kind": 6,
+        "importPath": "model.hepsiburda_datas",
+        "description": "model.hepsiburda_datas",
+        "peekOfCode": "class HepsiburadaDataReadOnly(db.Model):\n    __tablename__ = 'hepsiburada_data'  # Same table name as the original HepsiburadaData table\n    __table_args__ = {'extend_existing': True}  # to extend the existing table\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    brand_name = db.Column(db.String(50))\n    price = db.Column(db.Integer)\n    review_rating = db.Column(db.Float)\n    review_count = db.Column(db.Integer)\n    product_link = db.Column(db.String(255))",
+        "detail": "model.hepsiburda_datas",
+        "documentation": {}
+    },
+    {
+        "label": "N11Data",
+        "kind": 6,
+        "importPath": "model.n11_datas",
+        "description": "model.n11_datas",
+        "peekOfCode": "class N11Data(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    brand_name = db.Column(db.String(50))\n    price = db.Column(db.Integer)  # Use a numeric data type for the price (assuming it contains decimal values)\n    review_rating = db.Column(db.Float,default=0.0)\n    review_count = db.Column(db.Integer,default=0)\n    product_link = db.Column(db.String(255))\n    image_link = db.Column(db.String(255))\n    fromWhere = db.Column(db.String(50), default=\"n11\")",
+        "detail": "model.n11_datas",
+        "documentation": {}
+    },
+    {
+        "label": "N11DataReadOnly",
+        "kind": 6,
+        "importPath": "model.n11_datas",
+        "description": "model.n11_datas",
+        "peekOfCode": "class N11DataReadOnly(db.Model):\n    __tablename__ = 'n11_data'\n    __table_args__ = {'extend_existing': True}\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    brand_name = db.Column(db.String(50))\n    price = db.Column(db.Integer)  # Use a numeric data type for the price (assuming it contains decimal values)\n    review_rating = db.Column(db.Float)\n    review_count = db.Column(db.Integer)\n    product_link = db.Column(db.String(255))",
+        "detail": "model.n11_datas",
+        "documentation": {}
+    },
+    {
+        "label": "VatanData",
+        "kind": 6,
+        "importPath": "model.vatandatas",
+        "description": "model.vatandatas",
+        "peekOfCode": "class VatanData(db.Model):\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    brand_name = db.Column(db.String(50))\n    price = db.Column(db.Integer)\n    review_rating = db.Column(db.Float)\n    review_count = db.Column(db.Integer)\n    product_link = db.Column(db.String(255))\n    image_link = db.Column(db.String(255))\n    fromWhere = db.Column(db.String(50), default=\"vatan\")  # Add the new column with the default value \"vatan\"",
+        "detail": "model.vatandatas",
+        "documentation": {}
+    },
+    {
+        "label": "VatanDataReadOnly",
+        "kind": 6,
+        "importPath": "model.vatandatas",
+        "description": "model.vatandatas",
+        "peekOfCode": "class VatanDataReadOnly(db.Model):\n    __tablename__ = 'vatan_data'  # Same table name as the original ProductData table\n    __table_args__ = {'extend_existing': True}  # Use this option to extend the existing table\n    id = db.Column(db.Integer, primary_key=True)\n    product_name = db.Column(db.String(255))\n    brand_name = db.Column(db.String(50))\n    price = db.Column(db.Integer)\n    review_rating = db.Column(db.Float,default=0.0)\n    review_count = db.Column(db.Integer,default=0)\n    product_link = db.Column(db.String(255))",
+        "detail": "model.vatandatas",
+        "documentation": {}
+    },
+    {
+        "label": "initial_data_extraction_complete",
+        "kind": 5,
+        "importPath": "scheduler.hepsiburda_notebook_scheduler",
+        "description": "scheduler.hepsiburda_notebook_scheduler",
+        "peekOfCode": "initial_data_extraction_complete = False\ndata_extraction_lock = asyncio.Lock()\nasync def schedule_task_for_hepsiburada(app, db, database_uri):\n    global initial_data_extraction_complete\n    while True:  # Run the loop indefinitely for periodic scheduling\n        with app.app_context():  # Set up the Flask application context within the background thread\n            try:\n                print(\"Hepsiburada Notebook Scheduler started.\")\n                for page_number in range(1, 50):\n                    product_data = await get_product_data(page_number)  # Await the async function here",
+        "detail": "scheduler.hepsiburda_notebook_scheduler",
+        "documentation": {}
+    },
+    {
+        "label": "data_extraction_lock",
+        "kind": 5,
+        "importPath": "scheduler.hepsiburda_notebook_scheduler",
+        "description": "scheduler.hepsiburda_notebook_scheduler",
+        "peekOfCode": "data_extraction_lock = asyncio.Lock()\nasync def schedule_task_for_hepsiburada(app, db, database_uri):\n    global initial_data_extraction_complete\n    while True:  # Run the loop indefinitely for periodic scheduling\n        with app.app_context():  # Set up the Flask application context within the background thread\n            try:\n                print(\"Hepsiburada Notebook Scheduler started.\")\n                for page_number in range(1, 50):\n                    product_data = await get_product_data(page_number)  # Await the async function here\n                    #print(product_data)",
+        "detail": "scheduler.hepsiburda_notebook_scheduler",
+        "documentation": {}
+    },
+    {
+        "label": "initial_data_extraction_complete",
+        "kind": 5,
+        "importPath": "scheduler.vatan_notebook_scheduler",
+        "description": "scheduler.vatan_notebook_scheduler",
+        "peekOfCode": "initial_data_extraction_complete = False\ndata_extraction_lock = asyncio.Lock()\nasync def schedule_task_for_vatan(app, db,database_uri):\n    #global initial_data_extraction_complete\n    while True:  # Run the loop indefinitely for periodic scheduling\n        with app.app_context():  \n            try:\n                print(\"Notebook Scheduler started.\")\n                for page_number in range(1, 15):\n                    product_data = await get_product_data(page_number)  # Await the async function here",
+        "detail": "scheduler.vatan_notebook_scheduler",
+        "documentation": {}
+    },
+    {
+        "label": "data_extraction_lock",
+        "kind": 5,
+        "importPath": "scheduler.vatan_notebook_scheduler",
+        "description": "scheduler.vatan_notebook_scheduler",
+        "peekOfCode": "data_extraction_lock = asyncio.Lock()\nasync def schedule_task_for_vatan(app, db,database_uri):\n    #global initial_data_extraction_complete\n    while True:  # Run the loop indefinitely for periodic scheduling\n        with app.app_context():  \n            try:\n                print(\"Notebook Scheduler started.\")\n                for page_number in range(1, 15):\n                    product_data = await get_product_data(page_number)  # Await the async function here\n                    if not product_data:",
+        "detail": "scheduler.vatan_notebook_scheduler",
+        "documentation": {}
+    },
+    {
+        "label": "device_name",
+        "kind": 5,
+        "importPath": "service.deneme",
+        "description": "service.deneme",
+        "peekOfCode": "device_name = \"MSI PULSE 17 B13VFK-404TR Intel Core i7 13700H 32GB 1TB SSD RTX4060 Windows 11 Home 17.3\"\nparser = device_name_utils.DeviceNameParser(device_name)\nprint(parser.manufacturer) # MSI\nprint(parser.model) # PULSE 17 B13VFK-404TR\nprint(parser.processor) # Intel Core i7 13700H\nprint(parser.ram) # 32GB\nprint(parser.storage) # 1TB SSD\nprint(parser.os) # Windows 11 Home\nprint(parser.screen) # 17.3",
+        "detail": "service.deneme",
+        "documentation": {}
+    },
+    {
+        "label": "parser",
+        "kind": 5,
+        "importPath": "service.deneme",
+        "description": "service.deneme",
+        "peekOfCode": "parser = device_name_utils.DeviceNameParser(device_name)\nprint(parser.manufacturer) # MSI\nprint(parser.model) # PULSE 17 B13VFK-404TR\nprint(parser.processor) # Intel Core i7 13700H\nprint(parser.ram) # 32GB\nprint(parser.storage) # 1TB SSD\nprint(parser.os) # Windows 11 Home\nprint(parser.screen) # 17.3",
+        "detail": "service.deneme",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\nCORS(app)  # frontend in apilere erisebilmesi icin corsu tanimla cors hatasini engelle\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SQLALCHEMY_DATABASE_URI']",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan\n    from scheduler.n11_notebook_scheduler import schedule_task_for_n11",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.config['SQLALCHEMY_TRACK_MODIFICATIONS']",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan\n    from scheduler.n11_notebook_scheduler import schedule_task_for_n11\n    from controller.n11_notebook_controller import n11_blueprint",
+        "detail": "app",
+        "documentation": {}
+    }
+]

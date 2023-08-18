@@ -13,7 +13,16 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)  # frontend in apilere erisebilmesi icin corsu tanimla cors hatasini engelle
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'
+
+db_username = "admin"
+db_password = "80s7caMIowdQutwg7MxwBmaRnIPJ86ri"
+db_host = "dpg-cjfvl8k1ja0c73e36sr0-a.oregon-postgres.render.com"
+db_port = 5432
+db_name = "final_project_f04r"
+
+db_uri = f"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 #Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla

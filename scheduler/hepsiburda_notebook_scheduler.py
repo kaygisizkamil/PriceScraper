@@ -50,4 +50,4 @@ async def schedule_task_for_hepsiburada(app, db, database_uri):
                 print("Hepsiburada Notebook Scheduler interrupted.")
 
             # Sleep for the specified interval (60 seconds)
-            await asyncio.sleep(240)
+            await asyncio.sleep(2400)
