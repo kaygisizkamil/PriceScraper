@@ -46,9 +46,9 @@ async def fetch_product_data(session, page_number):
             "Upgrade-Insecure-Requests": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
         }
-
-    
-        async with session.get(url, headers=headers) as response:
+        proxy="http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/"
+                        
+        async with session.get(url, headers=headers,proxy=proxy) as response:
             soup = BeautifulSoup(await response.text(), "html.parser")
 
             product_data_list = []

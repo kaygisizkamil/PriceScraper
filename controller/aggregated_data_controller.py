@@ -11,6 +11,7 @@ from sqlalchemy import  distinct
 from sqlalchemy import select, desc, text, func,asc,column
 from sqlalchemy import text
 from fuzzywuzzy import fuzz
+from sqlalchemy.exc import SQLAlchemyError
 
 
 
@@ -153,77 +154,86 @@ def get_screen_size_options():
 #it was real challenging to do it using orm so i used raw sql
 @all_cheapest_computers_blueprint.route('/cheapest/getall', methods=['GET'])
 def get_cheapest_options():
-    # Define the number of items per page
-    items_per_page = 20
+    try:
 
-    # Calculate the page number and offset
-    page = request.args.get('page', 1, type=int)
-    offset = (page - 1) * items_per_page
+        # Define the number of items per page
+        items_per_page = 20
 
-    # Get the user's selected sorting option and handle default case
-    selected_sort_option = request.args.get('sort', 'ascendive_price')
+        # Calculate the page number and offset
+        page = request.args.get('page', 1, type=int)
+        offset = (page - 1) * items_per_page
 
-    # Determine which query to use based on the sorting option
-    if selected_sort_option == 'ascendive_price':
-        order_by_column = "price ASC"
-    elif selected_sort_option == 'descending_price':
-        order_by_column = "price DESC"
-    elif selected_sort_option == 'descendive_review_rating':
-        order_by_column = "review_rating ASC"
-    elif selected_sort_option == 'ascendive_review_count':
-        order_by_column = "review_count DESC"
-    elif selected_sort_option == 'descendive_review_count':
-        order_by_column = "review_count ASC"
-    elif selected_sort_option == 'ascendive_review_rating':
-        order_by_column = "review_rating DESC"
-    else:
-        return jsonify({"error": "Invalid sorting option"})
+        # Get the user's selected sorting option and handle default case
+        selected_sort_option = request.args.get('sort', 'ascendive_price')
 
-    # Construct the final query with pagination and sorting
-    pagination_query = f"""
-        WITH ranked AS (
-            SELECT
-                *,
-                ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column},saved_time DESC) AS rn
-            FROM from_different_sources
-        )
-        SELECT *
-        FROM ranked fds 
-        WHERE rn = 1
-        ORDER BY {order_by_column},saved_time DESC
-        LIMIT :limit OFFSET :offset;
-    """
+        # Determine which query to use based on the sorting option
+        if selected_sort_option == 'ascendive_price':
+            order_by_column = "price ASC"
+        elif selected_sort_option == 'descending_price':
+            order_by_column = "price DESC"
+        elif selected_sort_option == 'descendive_review_rating':
+            order_by_column = "review_rating ASC"
+        elif selected_sort_option == 'ascendive_review_count':
+            order_by_column = "review_count DESC"
+        elif selected_sort_option == 'descendive_review_count':
+            order_by_column = "review_count ASC"
+        elif selected_sort_option == 'ascendive_review_rating':
+            order_by_column = "review_rating DESC"
+        else:
+            return jsonify({"error": "Invalid sorting option"})
 
-    # Execute the selected query using SQLAlchemy's text function
-    query_results = db.session.execute(text(pagination_query), {'limit': items_per_page, 'offset': offset}).fetchall()
+        # Construct the final query with pagination and sorting
+        pagination_query = f"""
+            WITH ranked AS (
+                SELECT
+                    *,
+                    ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column},saved_time DESC) AS rn
+                FROM from_different_sources
+            )
+            SELECT *
+            FROM ranked fds 
+            WHERE rn = 1
+            ORDER BY {order_by_column},saved_time DESC
+            LIMIT :limit OFFSET :offset;
+        """
+
+        # Execute the selected query using SQLAlchemy's text function
+        query_results = db.session.execute(text(pagination_query), {'limit': items_per_page, 'offset': offset}).fetchall()
 
 
-    # Prepare the results for JSON response
-    notebook_list = []
-    for notebook in query_results:
-        # Create a dictionary with the required attributes for each notebook
-        notebook_data = {
-            "product_name": notebook.product_name,
-            "brand_name": notebook.brand_name,
-            "price": notebook.price,
-            "review_rating": notebook.review_rating,
-            "review_count": notebook.review_count,
-            "product_link": notebook.product_link,
-            "image_link": notebook.image_link,
-            "fromWhere": notebook.fromWhere,
-            "cpu": notebook.cpu,
-            "ram": notebook.ram,
-            "screen": notebook.screen,
-            "gpu": notebook.gpu,
-            "os": notebook.os,
-            "ssd": notebook.ssd,
-            "hdd": notebook.hdd,
-            "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
-        }
-        notebook_list.append(notebook_data)
+        # Prepare the results for JSON response
+        notebook_list = []
+        for notebook in query_results:
+            # Create a dictionary with the required attributes for each notebook
+            notebook_data = {
+                "product_name": notebook.product_name,
+                "brand_name": notebook.brand_name,
+                "price": notebook.price,
+                "review_rating": notebook.review_rating,
+                "review_count": notebook.review_count,
+                "product_link": notebook.product_link,
+                "image_link": notebook.image_link,
+                "fromWhere": notebook.fromWhere,
+                "cpu": notebook.cpu,
+                "ram": notebook.ram,
+                "screen": notebook.screen,
+                "gpu": notebook.gpu,
+                "os": notebook.os,
+                "ssd": notebook.ssd,
+                "hdd": notebook.hdd,
+                "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
+            }
+            notebook_list.append(notebook_data)
 
-    # Return the list of notebooks as a JSON response
-    return jsonify(notebook_list)
+        # Return the list of notebooks as a JSON response
+        return jsonify(notebook_list)
+    except SQLAlchemyError as e:
+            db.session.rollback()  # Rollback the transaction in case of an error
+            return jsonify({"error": "Database error occurred"}), 500  # Return a 500 Internal Server Error
+
+    except Exception as e:
+            return jsonify({"error": "An unexpected error occurred"}), 500  # Return a 500 Internal Server Error
+
 
 
 @all_price_range_blueprint.route('/price-range/get', methods=['GET'])
@@ -275,200 +285,212 @@ LIMIT items_per_page OFFSET offset;
 @all_sidebar_computers_blueprint.route('/sidebar/getall', methods=['GET'])
 def get_sidebar_options():
     # Get selected values from query parameters
-    selected_values = request.args.get('selectedValues', '{}')
-    selected_values = json.loads(selected_values)
-    selected_column_mappings = {
-        'brands': 'brand_name',
-        'processors': 'cpu',
-        'rams': 'ram',
-        'screenSizes': 'screen',
-        'priceInterval': 'price'
-    }
-
-    base_query = """
-        SELECT *
-        FROM from_different_sources fds
-        WHERE (fds.product_name, fds.brand_name, fds.saved_time) IN (
-            SELECT
-                product_name,
-                brand_name,
-                MAX(saved_time) AS latest_saved_time
-            FROM from_different_sources
-            GROUP BY product_name, brand_name
-        )
-    """
-    params = {}
-
-    brands = selected_values.get('brands')
-    processors = selected_values.get('processors')
-    rams = selected_values.get('rams')
-    screen_sizes = selected_values.get('screenSizes')
-    price_interval = selected_values.get('priceInterval')
-
-    if brands:
-        base_query += f" AND {selected_column_mappings['brands']} = ANY(:brands)"
-        params['brands'] = brands
-    if processors:
-        processor_conditions = []
-        for processor in processors:
-            processor_condition = f"cpu ILIKE '%{processor}%'"
-            processor_conditions.append(processor_condition)
-        processor_condition = " OR ".join(processor_conditions)
-        base_query += f" AND ({processor_condition})"
-    if rams:
-        advanced_ram_conditions = []
-        for ram in rams:
-            # Remove the "+" sign and convert to lowercase before querying
-            ram = ram.replace('+', '').lower()
-            ram_condition = f"ram ILIKE '%{ram}%'"
-            advanced_ram_conditions.append(ram_condition)
-        ram_condition = " OR ".join(advanced_ram_conditions)
-        base_query += f" AND ({ram_condition})"
-    if screen_sizes:
-        screen_size_conditions = []
-        for screen_size in screen_sizes:
-            screen_size_condition = f"screen = '{screen_size}'"
-            screen_size_conditions.append(screen_size_condition)
-        screen_size_condition = " OR ".join(screen_size_conditions)
-        base_query += f" AND ({screen_size_condition})"
-    if price_interval:
-        base_query += " AND price BETWEEN :min_price AND :max_price"
-        params['min_price'] = price_interval[0]
-        params['max_price'] = price_interval[1]
-
-    # Get the user's selected sorting option and handle default case
-    selected_sort_option = request.args.get('sort', 'ascendive_price')
-
-    # Determine which query to use based on the sorting option
-    if selected_sort_option == 'ascendive_price':
-        order_by_column = "price ASC"
-    elif selected_sort_option == 'descending_price':
-        order_by_column = "price DESC"
-    elif selected_sort_option == 'descendive_review_rating':
-        order_by_column = "review_rating ASC"
-    elif selected_sort_option == 'ascendive_review_count':
-        order_by_column = "review_count DESC"
-    elif selected_sort_option == 'descendive_review_count':
-        order_by_column = "review_count ASC"
-    elif selected_sort_option == 'ascendive_review_rating':
-        order_by_column = "review_rating DESC"
-    else:
-        return jsonify({"error": "Invalid sorting option"})
-
-    page = request.args.get('page', 1, type=int)
-    items_per_page = request.args.get('itemsPerPage', 20, type=int)  # Get items per page from query parameters
-    base_query += f" ORDER BY {order_by_column} LIMIT :limit OFFSET :offset"
-    params['limit'] = items_per_page
-    params['offset'] = (page - 1) * items_per_page
-
-    query_results = db.session.execute(text(base_query), params).fetchall()
-
-    # Prepare the results for JSON response
-    notebook_list = []
-    for notebook in query_results:
-        notebook_data = {
-            "product_name": notebook.product_name,
-            "brand_name": notebook.brand_name,
-            "price": notebook.price,
-            "review_rating": notebook.review_rating,
-            "review_count": notebook.review_count,
-            "product_link": notebook.product_link,
-            "image_link": notebook.image_link,
-            "fromWhere": notebook.fromWhere,
-            "cpu": notebook.cpu,
-            "ram": notebook.ram,
-            "screen": notebook.screen,
-            "gpu": notebook.gpu,
-            "os": notebook.os,
-            "ssd": notebook.ssd,
-            "hdd": notebook.hdd,
-            "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
+    try:
+        selected_values = request.args.get('selectedValues', '{}')
+        selected_values = json.loads(selected_values)
+        selected_column_mappings = {
+            'brands': 'brand_name',
+            'processors': 'cpu',
+            'rams': 'ram',
+            'screenSizes': 'screen',
+            'priceInterval': 'price'
         }
-        notebook_list.append(notebook_data)
 
-    # Return the list of notebooks as a JSON response
-    return jsonify(notebook_list)
+        base_query = """
+            SELECT *
+            FROM from_different_sources fds
+            WHERE (fds.product_name, fds.brand_name, fds.saved_time) IN (
+                SELECT
+                    product_name,
+                    brand_name,
+                    MAX(saved_time) AS latest_saved_time
+                FROM from_different_sources
+                GROUP BY product_name, brand_name
+            )
+        """
+        params = {}
 
+        brands = selected_values.get('brands')
+        processors = selected_values.get('processors')
+        rams = selected_values.get('rams')
+        screen_sizes = selected_values.get('screenSizes')
+        price_interval = selected_values.get('priceInterval')
+
+        if brands:
+            base_query += f" AND {selected_column_mappings['brands']} = ANY(:brands)"
+            params['brands'] = brands
+        if processors:
+            processor_conditions = []
+            for processor in processors:
+                processor_condition = f"cpu ILIKE '%{processor}%'"
+                processor_conditions.append(processor_condition)
+            processor_condition = " OR ".join(processor_conditions)
+            base_query += f" AND ({processor_condition})"
+        if rams:
+            advanced_ram_conditions = []
+            for ram in rams:
+                # Remove the "+" sign and convert to lowercase before querying
+                ram = ram.replace('+', '').lower()
+                ram_condition = f"ram ILIKE '%{ram}%'"
+                advanced_ram_conditions.append(ram_condition)
+            ram_condition = " OR ".join(advanced_ram_conditions)
+            base_query += f" AND ({ram_condition})"
+        if screen_sizes:
+            screen_size_conditions = []
+            for screen_size in screen_sizes:
+                screen_size_condition = f"screen = '{screen_size}'"
+                screen_size_conditions.append(screen_size_condition)
+            screen_size_condition = " OR ".join(screen_size_conditions)
+            base_query += f" AND ({screen_size_condition})"
+        if price_interval:
+            base_query += " AND price BETWEEN :min_price AND :max_price"
+            params['min_price'] = price_interval[0]
+            params['max_price'] = price_interval[1]
+
+        # Get the user's selected sorting option and handle default case
+        selected_sort_option = request.args.get('sort', 'ascendive_price')
+
+        # Determine which query to use based on the sorting option
+        if selected_sort_option == 'ascendive_price':
+            order_by_column = "price ASC"
+        elif selected_sort_option == 'descending_price':
+            order_by_column = "price DESC"
+        elif selected_sort_option == 'descendive_review_rating':
+            order_by_column = "review_rating ASC"
+        elif selected_sort_option == 'ascendive_review_count':
+            order_by_column = "review_count DESC"
+        elif selected_sort_option == 'descendive_review_count':
+            order_by_column = "review_count ASC"
+        elif selected_sort_option == 'ascendive_review_rating':
+            order_by_column = "review_rating DESC"
+        else:
+            return jsonify({"error": "Invalid sorting option"})
+
+        page = request.args.get('page', 1, type=int)
+        items_per_page = request.args.get('itemsPerPage', 20, type=int)  # Get items per page from query parameters
+        base_query += f" ORDER BY {order_by_column} LIMIT :limit OFFSET :offset"
+        params['limit'] = items_per_page
+        params['offset'] = (page - 1) * items_per_page
+
+        query_results = db.session.execute(text(base_query), params).fetchall()
+
+        # Prepare the results for JSON response
+        notebook_list = []
+        for notebook in query_results:
+            notebook_data = {
+                "product_name": notebook.product_name,
+                "brand_name": notebook.brand_name,
+                "price": notebook.price,
+                "review_rating": notebook.review_rating,
+                "review_count": notebook.review_count,
+                "product_link": notebook.product_link,
+                "image_link": notebook.image_link,
+                "fromWhere": notebook.fromWhere,
+                "cpu": notebook.cpu,
+                "ram": notebook.ram,
+                "screen": notebook.screen,
+                "gpu": notebook.gpu,
+                "os": notebook.os,
+                "ssd": notebook.ssd,
+                "hdd": notebook.hdd,
+                "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
+            }
+            notebook_list.append(notebook_data)
+
+        # Return the list of notebooks as a JSON response
+        return jsonify(notebook_list)
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        response_data = {'error': error_message}
+        response = make_response(jsonify(response_data), 500)
+        return response
 
 @all_matched_computers_blueprint.route('/matched/getall', methods=['GET'])
 def get_matched_options():
-    # Define the number of items per page and the larger batch size
-    items_per_page = 20
-    larger_batch_size = 100  
+    try:
+    
+        # Define the number of items per page and the larger batch size
+        items_per_page = 20
+        larger_batch_size = 100  
 
-    # Calculate the page number and offset
-    page = request.args.get('page', 1, type=int)
-    offset = (page - 1) * items_per_page
+        # Calculate the page number and offset
+        page = request.args.get('page', 1, type=int)
+        offset = (page - 1) * items_per_page
 
-    # Get the user's selected sorting option and handle default case
-    selected_sort_option = request.args.get('sort', 'ascendive_price')
+        # Get the user's selected sorting option and handle default case
+        selected_sort_option = request.args.get('sort', 'ascendive_price')
 
-    if selected_sort_option == 'ascendive_price':
-        order_by_column = "price ASC"
-    elif selected_sort_option == 'descending_price':
-        order_by_column = "price DESC"
-    elif selected_sort_option == 'descendive_review_rating':
-        order_by_column = "review_rating ASC"
-    elif selected_sort_option == 'ascendive_review_count':
-        order_by_column = "review_count DESC"
-    elif selected_sort_option == 'descendive_review_count':
-        order_by_column = "review_count ASC"
-    elif selected_sort_option == 'ascendive_review_rating':
-        order_by_column = "review_rating DESC"
-    else:
-        return jsonify({"error": "Invalid sorting option"})
+        if selected_sort_option == 'ascendive_price':
+            order_by_column = "price ASC"
+        elif selected_sort_option == 'descending_price':
+            order_by_column = "price DESC"
+        elif selected_sort_option == 'descendive_review_rating':
+            order_by_column = "review_rating ASC"
+        elif selected_sort_option == 'ascendive_review_count':
+            order_by_column = "review_count DESC"
+        elif selected_sort_option == 'descendive_review_count':
+            order_by_column = "review_count ASC"
+        elif selected_sort_option == 'ascendive_review_rating':
+            order_by_column = "review_rating DESC"
+        else:
+            return jsonify({"error": "Invalid sorting option"})
 
-    # Get the user's search query
-    user_query = request.args.get('query', '')
+        # Get the user's search query
+        user_query = request.args.get('query', '')
 
-    # Construct the base query with larger batch size, pagination, and sorting
-    base_query = f"""
-        WITH ranked AS (
-            SELECT
-                *,
-                ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column}) AS rn
-            FROM from_different_sources
-            WHERE LOWER(product_name) LIKE LOWER(:query)
-        )
-        SELECT *
-        FROM ranked
-        WHERE rn = 1
-        ORDER BY {order_by_column}
-        LIMIT {larger_batch_size};
-    """
+        # Construct the base query with larger batch size, pagination, and sorting
+        base_query = f"""
+            WITH ranked AS (
+                SELECT
+                    *,
+                    ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY {order_by_column}) AS rn
+                FROM from_different_sources
+                WHERE LOWER(product_name) LIKE LOWER(:query)
+            )
+            SELECT *
+            FROM ranked
+            WHERE rn = 1
+            ORDER BY {order_by_column}
+            LIMIT {larger_batch_size};
+        """
 
-    # Execute the base query using SQLAlchemy's text function
-    query_results = db.session.execute(text(base_query), {'query': f'%{user_query}%'}).fetchall()
+        # Execute the base query using SQLAlchemy's text function
+        query_results = db.session.execute(text(base_query), {'query': f'%{user_query}%'}).fetchall()
 
-    # Prepare the results for fuzzy search
-    data_for_fuzzy_search = []
-    for notebook in query_results:
-        data_for_fuzzy_search.append({
-            "product_name": notebook.product_name,
-            "brand_name": notebook.brand_name,
-            "price": notebook.price,
-            "review_rating": notebook.review_rating,
-            "review_count": notebook.review_count,
-            "product_link": notebook.product_link,
-            "image_link": notebook.image_link,
-            "fromWhere": notebook.fromWhere,
-            "cpu": notebook.cpu,
-            "ram": notebook.ram,
-            "screen": notebook.screen,
-            "gpu": notebook.gpu,
-            "os": notebook.os,
-            "ssd": notebook.ssd,
-            "hdd": notebook.hdd,
-            "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
-        })
+        # Prepare the results for fuzzy search
+        data_for_fuzzy_search = []
+        for notebook in query_results:
+            data_for_fuzzy_search.append({
+                "product_name": notebook.product_name,
+                "brand_name": notebook.brand_name,
+                "price": notebook.price,
+                "review_rating": notebook.review_rating,
+                "review_count": notebook.review_count,
+                "product_link": notebook.product_link,
+                "image_link": notebook.image_link,
+                "fromWhere": notebook.fromWhere,
+                "cpu": notebook.cpu,
+                "ram": notebook.ram,
+                "screen": notebook.screen,
+                "gpu": notebook.gpu,
+                "os": notebook.os,
+                "ssd": notebook.ssd,
+                "hdd": notebook.hdd,
+                "saved_time": notebook.saved_time.isoformat()  # Convert to ISO 8601 string format
+            })
 
-    # Perform fuzzy search and filtering
-    matching_results = []
-    for item in data_for_fuzzy_search:
-        match_ratio = fuzz.partial_ratio(user_query.lower(), item['product_name'].lower())  # Compare input with the product name
-        if match_ratio > 70: 
-            matching_results.append(item)
+        # Perform fuzzy search and filtering
+        matching_results = []
+        for item in data_for_fuzzy_search:
+            match_ratio = fuzz.partial_ratio(user_query.lower(), item['product_name'].lower())  # Compare input with the product name
+            if match_ratio > 70: 
+                matching_results.append(item)
 
-    # Return the paginated fuzzy search results as a JSON response
-    paginated_results = matching_results[offset:offset + items_per_page]
-    return jsonify(paginated_results)
+        # Return the paginated fuzzy search results as a JSON response
+        paginated_results = matching_results[offset:offset + items_per_page]
+        return jsonify(paginated_results)
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        response_data = {'error': error_message}
+        response = make_response(jsonify(response_data), 500)
+        return response

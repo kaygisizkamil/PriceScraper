@@ -28,7 +28,7 @@ def vatan_get_all_notebooks():
         threshold_time = datetime.utcnow()
     else:
         # Calculate the time threshold for the last 40 minutes from the latest saved time
-        threshold_time = latest_saved_time[0] - timedelta(minutes=40)
+        threshold_time = latest_saved_time[0] - timedelta(minutes=5000)
 
     # Fetch data from the read-only table (HepsiburadaDataReadOnly) using pagination and filtering by saved_time
     # Fetch data from the read-only table (HepsiburadaDataReadOnly) using pagination and filtering by saved_time

@@ -28,8 +28,10 @@ async def get_product_data_infos(session, page_number):
 
         async def get_product_and_image_data(page_url):
             product_data_list = []
+            proxy="http://oanuqvtk-rotate:s8dzk069y5jk@p.webshare.io:80/"
+                    
 
-            response = await session.get(page_url, headers=headers)
+            response = await session.get(page_url, headers=headers,proxy=proxy)
             soup = BeautifulSoup(await response.text(), "html.parser")
             script_tags = soup.find_all("script", type="text/javascript")
 

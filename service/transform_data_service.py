@@ -91,13 +91,15 @@ async def fetch_and_parse_product_data_vatan(session, data):
                                     if len(columns) >= 2:
                                         name = columns[0].text.strip()
                                         if name == 'Ekran Boyutu':
-                                            screen_text= columns[1].text.strip()
-                                            numeric_screen_size = re.search(r'(\d+[,.]\d+)', screen_text)
+                                            screen_text = columns[1].text.strip()
+                                            numeric_screen_size = re.search(r'(\d+[,.]?\d*)', screen_text)  # Updated regex here
                                             if numeric_screen_size:
                                                 screen_value = numeric_screen_size.group(1)
                                                 # Replace comma with dot as the decimal separator
                                                 screen_value = screen_value.replace(',', '.')
                                                 specs['screen'] = screen_value
+                                            else:
+                                                specs['screen'] = None  # Handle case where screen size couldn't be extracted
                                             
 
                         # GPU
@@ -291,7 +293,9 @@ async def fetch_and_parse_product_data_hb(session, data):
                                         cpu_islemci = property_value
                                     # Map other property names to the corresponding keys in the 'specs' dictionary
                                     elif property_name == 'Ram (Sistem Belleği)':
-                                        specs['ram'] = property_value
+                                        ram_value = property_value.strip()
+                                        specs['ram']=ram_value.replace(' ', '').lower()
+                                        
                                     elif property_name == 'Ekran Boyutu':
                                         screen_text = property_value
                                         numeric_screen_size = re.search(r'(\d+[,.]\d+)', screen_text)
@@ -347,7 +351,7 @@ async def fetch_and_parse_product_data_hb(session, data):
     return results
 
 async def fetch_data_from_vatan_source(session: aiohttp.ClientSession, page_number: int)-> list:
-    url = f'http://localhost:5000/api/vatan/notebooks/getall?page={page_number}'
+    url = f'https://price-scraper-irdo.onrender.com/api/vatan/notebooks/getall?page={page_number}'
 
     try:
         async with session.get(url) as response:
@@ -359,7 +363,7 @@ async def fetch_data_from_vatan_source(session: aiohttp.ClientSession, page_numb
         return []
     
 async def fetch_data_from_hb_source(session: aiohttp.ClientSession, page_number: int)-> list:
-    url = f'http://localhost:5000/api/hepsiburda/notebooks/getall?page={page_number}'
+    url = f'https://price-scraper-irdo.onrender.com/api/hepsiburda/notebooks/getall?page={page_number}'
 
     try:
         async with session.get(url) as response:

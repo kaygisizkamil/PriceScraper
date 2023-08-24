@@ -634,6 +634,14 @@
         "documentation": {}
     },
     {
+        "label": "SQLAlchemyError",
+        "importPath": "sqlalchemy.exc",
+        "description": "sqlalchemy.exc",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.exc",
+        "documentation": {}
+    },
+    {
         "label": "HepsiburadaDataReadOnly",
         "importPath": "model.hepsiburda_datas",
         "description": "model.hepsiburda_datas",
@@ -1173,7 +1181,7 @@
         "kind": 2,
         "importPath": "controller.aggregated_data_controller",
         "description": "controller.aggregated_data_controller",
-        "peekOfCode": "def get_cheapest_options():\n    # Define the number of items per page\n    items_per_page = 20\n    # Calculate the page number and offset\n    page = request.args.get('page', 1, type=int)\n    offset = (page - 1) * items_per_page\n    # Get the user's selected sorting option and handle default case\n    selected_sort_option = request.args.get('sort', 'ascendive_price')\n    # Determine which query to use based on the sorting option\n    if selected_sort_option == 'ascendive_price':",
+        "peekOfCode": "def get_cheapest_options():\n    try:\n        # Define the number of items per page\n        items_per_page = 20\n        # Calculate the page number and offset\n        page = request.args.get('page', 1, type=int)\n        offset = (page - 1) * items_per_page\n        # Get the user's selected sorting option and handle default case\n        selected_sort_option = request.args.get('sort', 'ascendive_price')\n        # Determine which query to use based on the sorting option",
         "detail": "controller.aggregated_data_controller",
         "documentation": {}
     },
@@ -1191,7 +1199,7 @@
         "kind": 2,
         "importPath": "controller.aggregated_data_controller",
         "description": "controller.aggregated_data_controller",
-        "peekOfCode": "def get_sidebar_options():\n    # Get selected values from query parameters\n    selected_values = request.args.get('selectedValues', '{}')\n    selected_values = json.loads(selected_values)\n    selected_column_mappings = {\n        'brands': 'brand_name',\n        'processors': 'cpu',\n        'rams': 'ram',\n        'screenSizes': 'screen',\n        'priceInterval': 'price'",
+        "peekOfCode": "def get_sidebar_options():\n    # Get selected values from query parameters\n    try:\n        selected_values = request.args.get('selectedValues', '{}')\n        selected_values = json.loads(selected_values)\n        selected_column_mappings = {\n            'brands': 'brand_name',\n            'processors': 'cpu',\n            'rams': 'ram',\n            'screenSizes': 'screen',",
         "detail": "controller.aggregated_data_controller",
         "documentation": {}
     },
@@ -1200,7 +1208,7 @@
         "kind": 2,
         "importPath": "controller.aggregated_data_controller",
         "description": "controller.aggregated_data_controller",
-        "peekOfCode": "def get_matched_options():\n    # Define the number of items per page and the larger batch size\n    items_per_page = 20\n    larger_batch_size = 100  \n    # Calculate the page number and offset\n    page = request.args.get('page', 1, type=int)\n    offset = (page - 1) * items_per_page\n    # Get the user's selected sorting option and handle default case\n    selected_sort_option = request.args.get('sort', 'ascendive_price')\n    if selected_sort_option == 'ascendive_price':",
+        "peekOfCode": "def get_matched_options():\n    try:\n        # Define the number of items per page and the larger batch size\n        items_per_page = 20\n        larger_batch_size = 100  \n        # Calculate the page number and offset\n        page = request.args.get('page', 1, type=int)\n        offset = (page - 1) * items_per_page\n        # Get the user's selected sorting option and handle default case\n        selected_sort_option = request.args.get('sort', 'ascendive_price')",
         "detail": "controller.aggregated_data_controller",
         "documentation": {}
     },
@@ -1434,7 +1442,70 @@
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "app = Flask(__name__)\nCORS(app)  # frontend in apilere erisebilmesi icin corsu tanimla cors hatasini engelle\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada",
+        "peekOfCode": "app = Flask(__name__)\ncors = CORS(app, resources={r\"/api/*\": {\"origins\": [\"https://price-scraper-frontend-static.onrender.com\",\"https://price-scraper-irdo.onrender.com\"]}}, supports_credentials=True)\ndb_username = \"admin\"\ndb_password = \"80s7caMIowdQutwg7MxwBmaRnIPJ86ri\"\ndb_host = \"dpg-cjfvl8k1ja0c73e36sr0-a.oregon-postgres.render.com\"\ndb_port = 5432\ndb_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "cors",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "cors = CORS(app, resources={r\"/api/*\": {\"origins\": [\"https://price-scraper-frontend-static.onrender.com\",\"https://price-scraper-irdo.onrender.com\"]}}, supports_credentials=True)\ndb_username = \"admin\"\ndb_password = \"80s7caMIowdQutwg7MxwBmaRnIPJ86ri\"\ndb_host = \"dpg-cjfvl8k1ja0c73e36sr0-a.oregon-postgres.render.com\"\ndb_port = 5432\ndb_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db_username",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "db_username = \"admin\"\ndb_password = \"80s7caMIowdQutwg7MxwBmaRnIPJ86ri\"\ndb_host = \"dpg-cjfvl8k1ja0c73e36sr0-a.oregon-postgres.render.com\"\ndb_port = 5432\ndb_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db_password",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "db_password = \"80s7caMIowdQutwg7MxwBmaRnIPJ86ri\"\ndb_host = \"dpg-cjfvl8k1ja0c73e36sr0-a.oregon-postgres.render.com\"\ndb_port = 5432\ndb_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db_host",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "db_host = \"dpg-cjfvl8k1ja0c73e36sr0-a.oregon-postgres.render.com\"\ndb_port = 5432\ndb_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db_port",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "db_port = 5432\ndb_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db_name",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "db_name = \"final_project_f04r\"\n# Construct the database URI\ndb_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "db_uri",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "db_uri = f\"postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}\"\napp.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan",
         "detail": "app",
         "documentation": {}
     },
@@ -1443,7 +1514,7 @@
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost:5432/FinalProject'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan\n    from scheduler.n11_notebook_scheduler import schedule_task_for_n11",
+        "peekOfCode": "app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:fZb9iIc0DLPb6Fcypy5oNWTTF9C9Uy5d@dpg-cjhc2ob6fquc73b4p7cg-a/final_project_5twh'\napp.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan\n    from scheduler.n11_notebook_scheduler import schedule_task_for_n11",
         "detail": "app",
         "documentation": {}
     },
@@ -1452,7 +1523,7 @@
         "kind": 5,
         "importPath": "app",
         "description": "app",
-        "peekOfCode": "app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan\n    from scheduler.n11_notebook_scheduler import schedule_task_for_n11\n    from controller.n11_notebook_controller import n11_blueprint",
+        "peekOfCode": "app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True\n#Database'i baslat singleton baglanti modeliyle diger servicelerin ayni instance-baglantiyi kullanmasini sagla\ndb.init_app(app)\nwith app.app_context():\n        db.create_all()\nasync def start_tasks(database_uri):\n    from scheduler.hepsiburda_notebook_scheduler import schedule_task_for_hepsiburada\n    from scheduler.vatan_notebook_scheduler import schedule_task_for_vatan\n    from scheduler.n11_notebook_scheduler import schedule_task_for_n11\n    from scheduler.transform_data_scheduler import   scheduler",
         "detail": "app",
         "documentation": {}
     }
